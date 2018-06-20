@@ -184,5 +184,4 @@ public class SSD1306 extends I2C {
 		}
 		super.endTransmission();
 	}
-
 }

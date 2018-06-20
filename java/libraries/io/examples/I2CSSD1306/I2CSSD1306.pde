@@ -1,17 +1,20 @@
 /*
- * Sends data to the SSD1306, and emulates it. Both displays (oled and Processing Frame) should look the sme.
+ * Sends data to the SSD1306, and emulates it.
+ * Both displays (oled and Processing Frame) should look the sme.
  *
  * Print on the screen, AND on the emulator
  * If option == RANDOM, print random numbers [0..1023]
  * If option == STATIC_TEXT, print a static text
  * If option == IMAGE, print an image
+ * If option == GRAPHIC will randomly display geometric shaped
  */
 
 int RANDOM = 0;
 int STATIC_TEXT = 1;
 int IMAGE = 2;
+int GRAPHIC = 3;
 
-int option = IMAGE;
+int option = GRAPHIC;
 int value;
 
 final int NB_LINES = 32;
@@ -42,7 +45,7 @@ void setup() {
   textSize(72); // if text() is used.
 
 	if (option == IMAGE) {
-		img = new Java32x32(); //<>//
+		img = new Java32x32();
     SCREEN_FLAVOR = Mode.BLACK_ON_WHITE;
 	}
 
@@ -90,8 +93,40 @@ void draw() {
     int len = sb.strlen(text) * fontFactor;
     sb.text(text, 62 - (len / 2), 11, fontFactor, SCREEN_FLAVOR);
   } else if (option == IMAGE) {
-		sb.image(img, 0, 0, Mode.BLACK_ON_WHITE); //<>//
+		sb.image(img, 0, 0, Mode.BLACK_ON_WHITE);
 		sb.text("I speak Java!", 36, 20, Mode.BLACK_ON_WHITE);
+	} else if (option == GRAPHIC) {
+    int gOption = (int)Math.round(Math.random() * 3);
+//  println(String.format("G Option: %d", gOption));
+    switch (gOption) {
+      case 0:
+        sb.line(1, 1, 126, 30);
+        sb.line(126, 1, 1, 30);
+        sb.line(1, 25, 120, 10);
+        sb.line(10, 5, 10, 30);
+        sb.line(1, 5, 120, 5);
+        break;
+      case 1:
+//      sb.rectangle(5, 10, 100, 25);
+//      sb.rectangle(15, 3, 50, 30);
+        for (int i = 0; i < 8; i++) {
+          sb.rectangle(1 + (i * 2), 1 + (i * 2), 127 - (i * 2), 31 - (i * 2));
+        }
+        break;
+      case 2:
+        sb.plot(64, 16);
+        int[] x = new int[]{64, 73, 50, 78, 55};
+        int[] y = new int[]{1, 30, 12, 12, 30};
+        Polygon p = new Polygon(x, y, 5);
+        sb.shape(p, true);
+        break;
+      case 3:
+        sb.circle(64, 16, 15);
+        sb.circle(74, 16, 10);
+        sb.circle(80, 16, 5);
+        sb.arc(100, 16, 10, 20, 90);
+        break;
+    }
 	}
   if (oled != null) {
     oled.setBuffer(sb.getScreenBuffer());
@@ -149,7 +184,7 @@ void setBuffer(byte[] screenbuffer) {
   // This displays the buffer top to bottom, instead of left to right
   char[][] screenMatrix = new char[NB_LINES][NB_COLS];
   for (int i = 0; i < NB_COLS; i++) {
-    // Line is a vertical line, its length is 8 * (NB_LINES / 8)
+    // Line is a vertical line, made of (NB_LINES / 8) chunks.
     String line = "";
     for (int l = (NB_LINES / 8) - 1; l >= 0; l--) {
       int v = screenbuffer[i + (l * NB_COLS)] & 0xFF;
@@ -157,7 +192,6 @@ void setBuffer(byte[] screenbuffer) {
       line += chunk;
     }
 //  println("line: [" + line + "], length:" + line.length());
-
     for (int c = 0; c < line.length(); c++) {
       try {
         char mc = line.charAt(c);
@@ -177,7 +211,6 @@ void setBuffer(byte[] screenbuffer) {
   }
   this.setLedOnOff(matrix);
 }
-
 
 /**
  * Left pad, with blanks
