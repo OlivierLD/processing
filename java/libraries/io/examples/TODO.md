@@ -19,4 +19,11 @@ Other systems:
   <property name="jdk.update" value="172" />
 ```
 
+### Wiring Diagrams
+#### BME280
+![BME280](./I2CBME280/RPi.BME280_bb.png)
+
+#### SSD1306
+![BME280](./I2CSSD1306/RPi.SSD1306_bb.png)
+
 ---
