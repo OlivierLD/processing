@@ -70,7 +70,8 @@
             value="../../processing-docs/content/examples" />
 
   <property name="jdk.version" value="8" />
-  <property name="jdk.update" value="172" />
+  <!--property name="jdk.update" value="172" /-->
+  <property name="jdk.update" value="144" />
   <property name="jdk.build" value="11" />
   <!-- See https://gist.github.com/P7h/9741922
        or http://stackoverflow.com/q/10268583 -->
@@ -513,8 +514,8 @@
 
     <!-- Require that a JDK be installed, but call this on build, so that
          the download-jdk-macosx target can be called. -->
-    <fail unless="macosx_jdk_found"
-          message="JDK ${jdk.short} required.${line.separator}To build on OS X, you must install Oracle's JDK ${jdk.short} from${line.separator}http://www.oracle.com/technetwork/java/javase/downloads${line.separator}Or... type 'ant download-jdk-macosx' to download it to your Desktop.${line.separator}Note that only ${jdk.short} (not a later or earlier version) will work. ${line.separator}And it must be the JDK, not the JRE. And do not try to defy me again." />
+    <!--fail unless="macosx_jdk_found"
+          message="JDK ${jdk.short} required.${line.separator}To build on OS X, you must install Oracle's JDK ${jdk.short} from${line.separator}http://www.oracle.com/technetwork/java/javase/downloads${line.separator}Or... type 'ant download-jdk-macosx' to download it to your Desktop.${line.separator}Note that only ${jdk.short} (not a later or earlier version) will work. ${line.separator}And it must be the JDK, not the JRE. And do not try to defy me again." /-->
 
     <mkdir dir="macosx/work" />
 
