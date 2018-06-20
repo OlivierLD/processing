@@ -2,7 +2,7 @@
  * Sends data to the SSD1306, and emulates it. Both displays (oled and Processing Frame) should look the sme.
  *
  * Print on the screen, AND on the emulator
- * If random == true, print random numbers [0..1023] 
+ * If random == true, print random numbers [0..1023]
  * If random == false, print a static text
  */
 
