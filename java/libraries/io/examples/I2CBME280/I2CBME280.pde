@@ -5,7 +5,7 @@ BME280 bme280;
 void setup() {
 	size(600, 300);
   textSize(72);
-  System.setProperty("bme280.verbose", "false");
+  System.setProperty("bme280.verbose", "true");
 	bme280 = new BME280();
 }
 
