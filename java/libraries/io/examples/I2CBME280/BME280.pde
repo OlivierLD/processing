@@ -102,8 +102,8 @@ public class BME280 extends I2C {
       for (String device : deviceList) {
         sb.append((sb.length() > 0 ? ", " : "") + device);
       }
-			System.out.println(String.format("Device list: %s", sb.toString()));
-			System.out.println(String.format("Bus %s, address 0x%02X", bus, address));
+			println(String.format("Device list: %s", sb.toString()));
+			println(String.format("Bus %s, address 0x%02X", bus, address));
 		}
 
 		// Soft reset
@@ -160,28 +160,28 @@ public class BME280 extends I2C {
 
 	private void showCalibrationData() {
 		// Displays the calibration values for debugging purposes
-		System.out.println("======================");
-		System.out.println("DBG: T1 = " + displayRegister(dig_T1));
-		System.out.println("DBG: T2 = " + displayRegister(dig_T2));
-		System.out.println("DBG: T3 = " + displayRegister(dig_T3));
-		System.out.println("----------------------");
-		System.out.println("DBG: P1 = " + displayRegister(dig_P1));
-		System.out.println("DBG: P2 = " + displayRegister(dig_P2));
-		System.out.println("DBG: P3 = " + displayRegister(dig_P3));
-		System.out.println("DBG: P4 = " + displayRegister(dig_P4));
-		System.out.println("DBG: P5 = " + displayRegister(dig_P5));
-		System.out.println("DBG: P6 = " + displayRegister(dig_P6));
-		System.out.println("DBG: P7 = " + displayRegister(dig_P7));
-		System.out.println("DBG: P8 = " + displayRegister(dig_P8));
-		System.out.println("DBG: P9 = " + displayRegister(dig_P9));
-		System.out.println("----------------------");
-		System.out.println("DBG: H1 = " + displayRegister(dig_H1));
-		System.out.println("DBG: H2 = " + displayRegister(dig_H2));
-		System.out.println("DBG: H3 = " + displayRegister(dig_H3));
-		System.out.println("DBG: H4 = " + displayRegister(dig_H4));
-		System.out.println("DBG: H5 = " + displayRegister(dig_H5));
-		System.out.println("DBG: H6 = " + displayRegister(dig_H6));
-		System.out.println("======================");
+		println("======================");
+		println("DBG: T1 = " + displayRegister(dig_T1));
+		println("DBG: T2 = " + displayRegister(dig_T2));
+		println("DBG: T3 = " + displayRegister(dig_T3));
+		println("----------------------");
+		println("DBG: P1 = " + displayRegister(dig_P1));
+		println("DBG: P2 = " + displayRegister(dig_P2));
+		println("DBG: P3 = " + displayRegister(dig_P3));
+		println("DBG: P4 = " + displayRegister(dig_P4));
+		println("DBG: P5 = " + displayRegister(dig_P5));
+		println("DBG: P6 = " + displayRegister(dig_P6));
+		println("DBG: P7 = " + displayRegister(dig_P7));
+		println("DBG: P8 = " + displayRegister(dig_P8));
+		println("DBG: P9 = " + displayRegister(dig_P9));
+		println("----------------------");
+		println("DBG: H1 = " + displayRegister(dig_H1));
+		println("DBG: H2 = " + displayRegister(dig_H2));
+		println("DBG: H3 = " + displayRegister(dig_H3));
+		println("DBG: H4 = " + displayRegister(dig_H4));
+		println("DBG: H5 = " + displayRegister(dig_H5));
+		println("DBG: H6 = " + displayRegister(dig_H6));
+		println("======================");
 	}
 
 	private void command(int reg, byte val) {
@@ -202,12 +202,12 @@ public class BME280 extends I2C {
 		// Reads the raw (uncompensated) temperature from the sensor
 		int meas = mode;
 		if (verbose) {
-			System.out.println(String.format("readRawTemp: 1 - meas=%d", meas));
+			println(String.format("readRawTemp: 1 - meas=%d", meas));
 		}
 		this.command(BME280_REGISTER_CONTROL_HUM, (byte) meas); // HUM ?
 		meas = mode << 5 | mode << 2 | 1;
 		if (verbose) {
-			System.out.println(String.format("readRawTemp: 2 - meas=%d", meas));
+			println(String.format("readRawTemp: 2 - meas=%d", meas));
 		}
 		this.command(BME280_REGISTER_CONTROL, (byte) meas);
 
@@ -220,7 +220,7 @@ public class BME280 extends I2C {
 		int xlsb = this.readU8(BME280_REGISTER_TEMP_DATA + 2);
 		int raw = ((msb << 16) | (lsb << 8) | xlsb) >> 4;
 		if (verbose) {
-			System.out.println("DBG: Raw Temp: " + (raw & 0xFFFF) + ", " + raw + String.format(", msb: 0x%04X lsb: 0x%04X xlsb: 0x%04X", msb, lsb, xlsb));
+			println("DBG: Raw Temp: " + (raw & 0xFFFF) + ", " + raw + String.format(", msb: 0x%04X lsb: 0x%04X xlsb: 0x%04X", msb, lsb, xlsb));
 		}
 		return raw;
 	}
@@ -232,7 +232,7 @@ public class BME280 extends I2C {
 		int xlsb = this.readU8(BME280_REGISTER_PRESSURE_DATA + 2);
 		int raw = ((msb << 16) | (lsb << 8) | xlsb) >> 4;
 		if (verbose) {
-			System.out.println("DBG: Raw Press: " + (raw & 0xFFFF) + ", " + raw + String.format(", msb: 0x%04X lsb: 0x%04X xlsb: 0x%04X", msb, lsb, xlsb));
+			println("DBG: Raw Press: " + (raw & 0xFFFF) + ", " + raw + String.format(", msb: 0x%04X lsb: 0x%04X xlsb: 0x%04X", msb, lsb, xlsb));
 		}
 		return raw;
 	}
@@ -257,7 +257,7 @@ public class BME280 extends I2C {
 		tFine = (int) (var1 + var2);
 		temp = (var1 + var2) / 5120.0f;
 		if (verbose) {
-			System.out.println("DBG: Calibrated temperature = " + temp + " C");
+			println("DBG: Calibrated temperature = " + temp + " C");
 		}
 		return temp;
 	}
@@ -266,7 +266,7 @@ public class BME280 extends I2C {
 		// Gets the compensated pressure in pascal
 		int adc = readRawPressure();
 		if (verbose) {
-			System.out.println("ADC:" + adc + ", tFine:" + tFine);
+			println("ADC:" + adc + ", tFine:" + tFine);
 		}
 		float var1 = (tFine / 2.0f) - 64000.0f;
 		float var2 = var1 * var1 * (dig_P6 / 32768.0f);
@@ -283,7 +283,7 @@ public class BME280 extends I2C {
 		var2 = p * dig_P8 / 32768.0f;
 		p = p + (var1 + var2 + dig_P7) / 16.0f;
 		if (verbose) {
-			System.out.println("DBG: Pressure = " + p + " Pa");
+			println("DBG: Pressure = " + p + " Pa");
 		}
 		return p;
 	}
@@ -300,7 +300,7 @@ public class BME280 extends I2C {
 			h = 0;
     }
 		if (verbose) {
-			System.out.println("DBG: Humidity = " + h);
+			println("DBG: Humidity = " + h);
 		}
 		return h;
 	}
@@ -319,7 +319,7 @@ public class BME280 extends I2C {
 		  altitude = 44330.0 * (1.0 - Math.pow(pressure / standardSeaLevelPressure, 0.1903));
     }
 		if (verbose) {
-			System.out.println(String.format("DBG: Press: %f, PRMSL: %d, Altitude = %f", pressure, standardSeaLevelPressure, altitude));
+			println(String.format("DBG: Press: %f, PRMSL: %d, Altitude = %f", pressure, standardSeaLevelPressure, altitude));
 		}
 		return altitude;
 	}

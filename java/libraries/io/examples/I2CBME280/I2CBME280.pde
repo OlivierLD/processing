@@ -22,7 +22,7 @@ void draw() {
     // At sea level
     BME280Data allData = bme280.getAllData(); // 101325F);
     if ("true".equals(System.getProperty("bme280.verbose", "false"))) {
-      System.out.println(String.format("T: %.02f\272C\nH:  %.02f %%\nP:  %.02f hPa\nA:  %.02f m", 
+      println(String.format("T: %.02f\272C\nH:  %.02f %%\nP:  %.02f hPa\nA:  %.02f m",
       allData.getTemp(),
       allData.getHum(),
       allData.getPress(),
