@@ -96,7 +96,7 @@ void draw() {
 		sb.image(img, 0, 0, Mode.BLACK_ON_WHITE);
 		sb.text("I speak Java!", 36, 20, Mode.BLACK_ON_WHITE);
 	} else if (option == GRAPHIC) {
-    int gOption = (int)Math.round(Math.random() * 3);
+    int gOption = (int)Math.round(Math.random() * 3); // Random option
 //  println(String.format("G Option: %d", gOption));
     switch (gOption) {
       case 0:
