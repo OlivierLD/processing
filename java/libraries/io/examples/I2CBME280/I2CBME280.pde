@@ -20,7 +20,14 @@ void draw() {
     text(String.format("Hum:   %.02f %%", hum), 10, 150);
     text(String.format("Press: %.02f hPa", press), 10, 225);
     // At sea level
-    BME280Data allData = bme280.getAllData();
+    BME280Data allData = bme280.getAllData(); // 101325F);
+    if ("true".equals(System.getProperty("bme280.verbose", "false"))) {
+      System.out.println(String.format("T: %.02f\272C\nH:  %.02f %%\nP:  %.02f hPa\nA:  %.02f m", 
+      allData.getTemp(),
+      allData.getHum(),
+      allData.getPress(),
+      allData.getAlt()));
+    }
   } catch (Exception ex) {
     ex.printStackTrace();
   }
