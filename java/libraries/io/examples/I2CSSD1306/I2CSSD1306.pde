@@ -2,12 +2,16 @@
  * Sends data to the SSD1306, and emulates it. Both displays (oled and Processing Frame) should look the sme.
  *
  * Print on the screen, AND on the emulator
- * If random == true, print random numbers [0..1023]
- * If random == false, print a static text
+ * If option == RANDOM, print random numbers [0..1023]
+ * If option == STATIC_TEXT, print a static text
+ * If option == IMAGE, print an image
  */
 
-boolean random = false;
+int RANDOM = 0;
+int STATIC_TEXT = 1;
+int IMAGE = 2;
 
+int option = IMAGE;
 int value;
 
 final int NB_LINES = 32;
@@ -23,10 +27,11 @@ final int HEIGHT = 320;
 
 final int CELL_SIZE = 10;
 
-final Mode SCREEN_FLAVOR = Mode.WHITE_ON_BLACK;
+Mode SCREEN_FLAVOR = Mode.WHITE_ON_BLACK;
 
 SSD1306 oled;
 ScreenBuffer sb;
+ImgInterface img;
 
 void setup() {
   frameRate(4); // fps. Default is 60. Slow down to 4, to be able to read.
@@ -35,6 +40,11 @@ void setup() {
   stroke(BLACK);
   noFill();
   textSize(72); // if text() is used.
+
+	if (option == IMAGE) {
+		img = new Java32x32(); //<>//
+    SCREEN_FLAVOR = Mode.BLACK_ON_WHITE;
+	}
 
   try {
     println(String.format("SSD1306 address: 0x%02X", SSD1306.SSD1306_I2C_ADDRESS));
@@ -70,16 +80,19 @@ void draw() {
   }
   sb.clear(SCREEN_FLAVOR);
 
-  if (!random) {
+  if (option == STATIC_TEXT) {
     sb.text("ScreenBuffer", 2, 9, SCREEN_FLAVOR);
     sb.text(NB_COLS + " x " + NB_LINES + " for LCD", 2, 19, SCREEN_FLAVOR);
     sb.text("I speak Processing!", 2, 29, SCREEN_FLAVOR);
-  } else {
+  } else if (option == RANDOM) {
     String text = String.format("- %04d -", value);
     int fontFactor = 3;
     int len = sb.strlen(text) * fontFactor;
     sb.text(text, 62 - (len / 2), 11, fontFactor, SCREEN_FLAVOR);
-  }
+  } else if (option == IMAGE) {
+		sb.image(img, 0, 0, Mode.BLACK_ON_WHITE); //<>//
+		sb.text("I speak Java!", 36, 20, Mode.BLACK_ON_WHITE);
+	}
   if (oled != null) {
     oled.setBuffer(sb.getScreenBuffer());
     oled.display();
@@ -145,18 +158,18 @@ void setBuffer(byte[] screenbuffer) {
     }
 //  println("line: [" + line + "], length:" + line.length());
 
-    for (int c = 0; c < line.length(); c++) { //<>//
+    for (int c = 0; c < line.length(); c++) {
       try {
         char mc = line.charAt(c);
-        screenMatrix[c][i] = mc; //<>//
+        screenMatrix[c][i] = mc;
       } catch (Exception ex) {
         println("Line:" + line + " (" + line.length() + " character(s))");
         ex.printStackTrace();
       }
-    } //<>//
+    }
   }
   // Display the screen matrix, as it should be seen
-  boolean[][] matrix = this.getLedOnOff(); //<>//
+  boolean[][] matrix = this.getLedOnOff();
   for (int i = 0; i < NB_LINES; i++) {
     for (int j = 0; j < NB_COLS; j++) {
       matrix[j][NB_LINES - 1 - i] = (screenMatrix[i][j] == 'X' ? true : false);
