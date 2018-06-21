@@ -30,5 +30,14 @@ Other systems:
 #### BME280
 ![BME280](./I2CBME280/rpi.snapshot.png)
 
+#### SSD1306
+![On the PI](./I2CSSD1306/rpi.ssd1306.jpg)
+
+![On Processing](./I2CSSD1306/screenshot.01.png)
+
+![On Processing](./I2CSSD1306/screenshot.02.png)
+
+![On Processing](./I2CSSD1306/screenshot.03.png)
+
 
 ---

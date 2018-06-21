@@ -25,10 +25,10 @@ final int WHITE = 255;
 final int GRAY = 100;
 final color RED = color(255, 0, 0);
 
-final int WIDTH = 1280;
-final int HEIGHT = 320;
+final int WIDTH = 768;
+final int HEIGHT = 192;
 
-final int CELL_SIZE = 10;
+final int CELL_SIZE = 6;
 
 Mode SCREEN_FLAVOR = Mode.WHITE_ON_BLACK;
 
