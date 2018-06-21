@@ -14,7 +14,7 @@ int STATIC_TEXT = 1;
 int IMAGE = 2;
 int GRAPHIC = 3;
 
-int option = GRAPHIC;
+int option = RANDOM;
 int value;
 
 final int NB_LINES = 32;
@@ -25,10 +25,10 @@ final int WHITE = 255;
 final int GRAY = 100;
 final color RED = color(255, 0, 0);
 
-final int WIDTH = 1280;
-final int HEIGHT = 320;
+final int WIDTH = 768;
+final int HEIGHT = 192;
 
-final int CELL_SIZE = 10;
+final int CELL_SIZE = 6;
 
 Mode SCREEN_FLAVOR = Mode.WHITE_ON_BLACK;
 
@@ -39,7 +39,7 @@ ImgInterface img;
 void setup() {
   frameRate(4); // fps. Default is 60. Slow down to 4, to be able to read.
   initLeds();
-  size(1280, 320); // (WIDTH, HEIGHT);
+  size(768, 192); // (WIDTH, HEIGHT);
   stroke(BLACK);
   noFill();
   textSize(72); // if text() is used.
