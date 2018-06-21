@@ -14,7 +14,7 @@ int STATIC_TEXT = 1;
 int IMAGE = 2;
 int GRAPHIC = 3;
 
-int option = GRAPHIC;
+int option = RANDOM;
 int value;
 
 final int NB_LINES = 32;
@@ -39,7 +39,7 @@ ImgInterface img;
 void setup() {
   frameRate(4); // fps. Default is 60. Slow down to 4, to be able to read.
   initLeds();
-  size(1280, 320); // (WIDTH, HEIGHT);
+  size(768, 192); // (WIDTH, HEIGHT);
   stroke(BLACK);
   noFill();
   textSize(72); // if text() is used.
