@@ -1,6 +1,6 @@
 /*
  * Sends data to the SSD1306, and emulates it.
- * Both displays (oled and Processing Frame) should look the sme.
+ * Both displays (oled and Processing Frame) should look the same.
  *
  * Print on the screen, AND on the emulator
  * If option == RANDOM, print random numbers [0..1023]
