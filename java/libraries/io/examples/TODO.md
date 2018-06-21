@@ -3,7 +3,7 @@
 - BME280, I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity. &#9989; Done
 - BMP180, I<small><sup>2</sup></small>C sensor, Temperature, Pressure
 - LSM303, I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
-- STH10, temperature and himudity sensor
+- STH10, temperature and humidity sensor
 - Improved SSD1306 (I<small><sup>2</sup></small>C)  &#10140; WIP
 - ADS 1x15, I<small><sup>2</sup></small>C ADC
 - MeArm robotic arm, using an I<small><sup>2</sup></small>C PCA9685 Servo board.
@@ -25,5 +25,10 @@ Other systems:
 
 #### SSD1306
 ![BME280](./I2CSSD1306/RPi.SSD1306_bb.png)
+
+### Screenshots
+#### BME280
+![BME280](./I2CBME280/rpi.snapshot.png)
+
 
 ---
