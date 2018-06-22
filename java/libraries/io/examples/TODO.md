@@ -1,6 +1,7 @@
 ## Hardware-IO examples to provide
 
 - BME280, I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity. &#9989; Done
+- BME280, I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity, with anaolg displays. &#9989; Done
 - BMP180, I<small><sup>2</sup></small>C sensor, Temperature, Pressure
 - LSM303, I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
 - STH10, temperature and humidity sensor
@@ -30,6 +31,8 @@ Other systems:
 ### Screenshots
 #### BME280
 ![BME280](./I2CBME280/rpi.snapshot.png)
+
+![BME280](./I2CBME280_UI/analog.png)
 
 #### SSD1306
 ![On the PI](./I2CSSD1306/rpi.ssd1306.jpg)

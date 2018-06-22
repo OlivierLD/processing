@@ -30,7 +30,8 @@ void draw() {
 	  float temp = bme280.readTemperature();
 	  float hum = bme280.readHumidity();
 	  float press = bme280.readPressure();
-		drawDisplay(press,
+
+		drawDisplay(press / 100f,
             		pressureFrom,
             		pressureTo,
             		10,
