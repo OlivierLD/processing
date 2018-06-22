@@ -5,6 +5,7 @@
 - LSM303, I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
 - STH10, temperature and humidity sensor
 - Improved SSD1306 (I<small><sup>2</sup></small>C)  &#10140; WIP
+- Mixing MCP3008 and SSD1306 (SPI & I<small><sup>2</sup></small>C)
 - ADS 1x15, I<small><sup>2</sup></small>C ADC
 - MeArm robotic arm, using an I<small><sup>2</sup></small>C PCA9685 Servo board.
 - ...

@@ -70,8 +70,8 @@
             value="../../processing-docs/content/examples" />
 
   <property name="jdk.version" value="8" />
-  <property name="jdk.update" value="172" />
-  <!-- property name="jdk.update" value="144" /-->
+  <!-- property name="jdk.update" value="172" / -->
+  <property name="jdk.update" value="144" />
   <property name="jdk.build" value="11" />
   <!-- See https://gist.github.com/P7h/9741922
        or http://stackoverflow.com/q/10268583 -->
