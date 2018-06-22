@@ -21,8 +21,9 @@ void setup() {
 	bme280 = new BME280();
 }
 
-int pressureFrom = 973, pressureTo = 1053;
+int pressureFrom = 973, pressureTo = 1053; // 1013 is centered.
 int humidityFrom = 0, humidityTo = 100;
+int temperatureFrom = -20, temperatureTo = 50;
 
 void draw() {
 	background(0);
@@ -49,22 +50,22 @@ void draw() {
             		1,
             		2 * centerX,
             		0,
-            		color(0,255,255), // Cyan
+            		color(0, 255, 255), // Cyan
             		"%",
             		"Humidity");
 
 		drawTube(temp,
-              -20,
-              50,
-              20,
-              270,
-              (4 * centerX) + 40,
-              0,
-              color(0, 255, 0),
-              1,
-              5,
-              "\272C");
-		} catch (Exception ex) {
+						 temperatureFrom,
+						 temperatureTo,
+             20,                 // tube width
+             270,                // tube height
+             (4 * centerX) + 40, // X Offset
+             0,                  // Y Offset
+             color(0, 255, 0),   // tick color, green.
+             1,                  // minor
+             5,                  // Major
+             "\272C");           // Unit
+	} catch (Exception ex) {
     ex.printStackTrace();
   }
 }
