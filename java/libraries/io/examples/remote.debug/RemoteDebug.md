@@ -62,14 +62,14 @@ For me, the project looks like this in IntelliJ:
 
 ![IntelliJ](./rd.01.png)
 
-Now, let's configure the remote debugging part. Again, all IDEs ahave thneir own way to do it, but it is usually well documented.
+Now, let's configure the remote debugging part. Again, all IDEs have their own way to do it, but it is usually well documented.
 In IntelliJ, you define a `Remote Configuration` like this:
 
 ![IntelliJ](./rd.02.png)
 
 > Notice:
-> - the address of the Raspberry PI, `192.168.42.9` in this case
-> - The post, `4000`, as defined in the script on the Raspberry PI.
+> - the address of the Raspberry PI on your network, `192.168.42.9` in this case
+> - The port, `4000`, as defined in the script on the Raspberry PI.
 
 ### Let's go!
 First, set breakpoints in your code, for the debugger to stop somewhere, once the program is running.
