@@ -1,9 +1,9 @@
 # Remote Debug a Processing Applet
 
-Many Integrated Development Environments (IDE) have nice debugging features, but they are way too big
+Many Integrated Development Environments (IDE) implementing the Java Platform Debugging Architecture (JPDA) have nice debugging features, but they are way too big
 and demanding to run on a Raspberry PI.
 
-Here we want to use an IDE like IntelliJ to remote debug the sketch at `GPIOSTH10`.
+Here we want to use an IDE like IntelliJ to remote-debug the sketch at `GPIOSTH10`.
 
 ### On the Raspberry PI
 On the Raspberry PI, in the Processing Development Environment (PDE),
