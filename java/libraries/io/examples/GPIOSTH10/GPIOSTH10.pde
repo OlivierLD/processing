@@ -69,6 +69,14 @@ void draw() {
   }
 }
 
+void dispose() {
+  if (!NativeInterface.isSimulated()) {
+    GPIO.releasePin(DATA);
+    GPIO.releasePin(CLOCK);
+  }
+  println("Bye!");
+}
+
 /**
  * Generic.
  * Provide: value, from, to, minor ticks, major ticks, xOffset, yOffset
