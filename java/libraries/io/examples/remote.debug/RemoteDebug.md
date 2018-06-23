@@ -1,7 +1,7 @@
 # Remote Debug a Processing Applet
 
 Many Integrated Development Environments (IDE) have nice debugging features, but they are way too big
-to run on a Raspberry PI.
+and demanding to run on a Raspberry PI.
 
 Here we want to use an IDE like IntelliJ to remote debug the sketch at `GPIOSTH10`.
 
