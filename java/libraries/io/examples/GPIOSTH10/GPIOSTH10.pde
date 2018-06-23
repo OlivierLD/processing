@@ -4,13 +4,13 @@ STH10 sth10;
 
 int DATA = 18,
     CLOCK = 23;
-    
+
 int centerX = 200;
 int centerY = 200;
 int tubeBottom = 380;
 int intRadius =  20;
 int extRadius = 180;
-    
+
 void setup() {
   println("Setup");
   size(520, 400);
@@ -20,13 +20,14 @@ void setup() {
   System.setProperty("sth10.verbose", "false");
 	sth10 = new STH10(DATA, CLOCK);
   frameRate(1f); // once per second
+	println("Let's go");
 }
 
 int humidityFrom = 0, humidityTo = 100;
 int temperatureFrom = -20, temperatureTo = 50;
 
 void draw() {
-  if (true || "true".equals(System.getProperty("sth10.verbose"))) {
+  if ("true".equals(System.getProperty("sth10.verbose"))) {
     println("Drawing");
   }
   background(0);

@@ -35,7 +35,7 @@ import processing.io.*;
  *
  * Pin numbers for method of the GPIO class are BCM numbers.
  */
-public class STH10 {
+class STH10 {
 
   private boolean DEBUG = "true".equals(System.getProperty("sth10.verbose"));
 
@@ -103,8 +103,10 @@ public class STH10 {
       if (DEBUG) {
         println(String.format(">> Read temperature raw value %d, 0x%s", value, lpad(Integer.toBinaryString(value), 16, "0")));
       }
+      return (value * D2_SO_C) + (D1_VDD_C); // Celcius
+    } else {
+      return Simulators.TempSimulator.get();
     }
-    return (value * D2_SO_C) + (D1_VDD_C); // Celcius
   }
 
   public double readHumidity() {
@@ -126,10 +128,12 @@ public class STH10 {
       if (DEBUG) {
         println(String.format(">> Read humidity raw value %d, 0x%s", value, lpad(Integer.toBinaryString(value), 16, "0")));
       }
+      double linearHumidity = C1_SO + (C2_SO * value) + (C3_SO * Math.pow(value, 2));
+      double humidity = ((t - 25) * (T1_S0 + (T2_SO * value)) + linearHumidity); // %
+      return humidity;
+    } else {
+      return Simulators.HumSimulator.get();
     }
-    double linearHumidity = C1_SO + (C2_SO * value) + (C3_SO * Math.pow(value, 2));
-    double humidity = ((t - 25) * (T1_S0 + (T2_SO * value)) + linearHumidity); // %
-    return humidity;
   }
 
   /**
