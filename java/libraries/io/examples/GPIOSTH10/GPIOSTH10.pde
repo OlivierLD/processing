@@ -12,24 +12,35 @@ int intRadius =  20;
 int extRadius = 180;
     
 void setup() {
+  println("Setup");
   size(520, 400);
   noStroke();
   noFill();
   textSize(10);
   System.setProperty("sth10.verbose", "false");
 	sth10 = new STH10(DATA, CLOCK);
+  frameRate(1f); // once per second
 }
 
 int humidityFrom = 0, humidityTo = 100;
 int temperatureFrom = -20, temperatureTo = 50;
 
 void draw() {
+  if (true || "true".equals(System.getProperty("sth10.verbose"))) {
+    println("Drawing");
+  }
   background(0);
   try {
     double temp = sth10.readTemperature();
     double hum = sth10.readHumidity();
     if ("true".equals(System.getProperty("sth10.verbose"))) {
       println(String.format("Temp %.02f\272C, Hum %02f%%", temp, hum));
+    }
+    if (NativeInterface.isSimulated()) {
+      hum = Math.min(hum, humidityTo);
+      hum = Math.max(hum, humidityFrom);
+      temp = Math.min(temp, temperatureTo);
+      temp = Math.max(temp, temperatureFrom);
     }
     drawDisplay((float)hum,
                 humidityFrom,
