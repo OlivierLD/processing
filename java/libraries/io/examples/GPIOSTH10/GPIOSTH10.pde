@@ -79,6 +79,7 @@ void draw() {
 
 void dispose() {
   if (!NativeInterface.isSimulated()) {
+    println("Returning the pins to the system");
     GPIO.releasePin(DATA);
     GPIO.releasePin(CLOCK);
   }
