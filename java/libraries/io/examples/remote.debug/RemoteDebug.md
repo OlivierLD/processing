@@ -1,5 +1,7 @@
 # Remote Debug a Processing Applet
 
+OK, `println` is all right..., but there are better ways to debug your code.
+
 Many Integrated Development Environments (IDE) implementing the Java Platform Debugging Architecture (JPDA) have nice debugging features, but they are way too big
 and demanding to run on a Raspberry PI.
 
@@ -55,7 +57,7 @@ The Remote Debugger is the machine where the IDE (like IntelliJ) is running.
 This machine and the Raspberry PI need to be on a network where they can see each other.
 
 On the remote debugger, upload the folder `application.linux-armv6h`, and open it in your IDE.
-Make sure the libraries in the `lib` folder are associated with your classpath (this opration depends on the IDE you are using,
+Make sure the libraries in the `lib` folder are associated with your classpath (this operation depends on the IDE you are using,
 IntelliJ, Eclipse, NetBeans..., they all have a different way to do this).
 
 For me, the project looks like this in IntelliJ:
@@ -69,7 +71,7 @@ In IntelliJ, you define a `Remote Configuration` like this:
 
 > Notice:
 > - the address of the Raspberry PI on your network, `192.168.42.9` in this case
-> - The port, `4000`, as defined in the script on the Raspberry PI.
+> - The port, `4000`, as defined in the script `GPIOSTH10` on the Raspberry PI.
 
 ### Let's go!
 First, set breakpoints in your code, for the debugger to stop somewhere, once the program is running.
@@ -83,7 +85,8 @@ Now, on the Raspberry PI, start the script:
  $ ./GPIOSTH10
  Listening for transport dt_socket at address: 4000
 ```
-This means that the program is waiting for the remote debugger to connect
+This means that the program is waiting for the remote debugger to connect.
+> Note: The Processing PApplet requires a Graphical Desktop. The script above needs to be started from a `Terminal` on the Graphical Desktop.
 
 Then, on the remote debugger, in IntelliJ - or your IDE - start the remote debugging session.
 
