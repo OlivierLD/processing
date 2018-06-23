@@ -1,7 +1,7 @@
 ## Hardware-IO examples to provide
 
 - [BME280](https://www.adafruit.com/product/2652), I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity. &#9989; Done
-- [BME280](https://www.adafruit.com/product/2652), I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity, with anaolg displays. &#9989; Done
+- [BME280](https://www.adafruit.com/product/2652), I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity, with analog displays. &#9989; Done
 - [BMP180](https://www.adafruit.com/product/1603), I<small><sup>2</sup></small>C sensor, Temperature, Pressure
 - [LSM303](https://www.adafruit.com/product/1120), I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
 - [STH10](https://www.adafruit.com/product/1298), temperature and humidity sensor.  &#10140; WIP
