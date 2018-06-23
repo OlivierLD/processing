@@ -11,8 +11,8 @@
 - MeArm robotic arm, using an I<small><sup>2</sup></small>C PCA9685 Servo board.
 - ...
 
-##### Receipies
-- How to Remote Debug a Processing Applet
+##### Recipes
+- [How to Remote Debug a Processing Applet](./remote.debug/RemoteDebug.md)
 
 #### Small Notes
 On MacOS, in `build/build.xml`, change
