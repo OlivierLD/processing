@@ -3,30 +3,32 @@ import processing.io.*;
 
 /**
  * STH10, Temperature, Humidity.
+ * Mesh-protected Weather-proof Temperature/Humidity Sensor - SHT10
+ * https://www.adafruit.com/product/1298
  *
        +-----+-----+--------------+-----++-----+--------------+-----+-----+
        | BCM | wPi | Name         |  Physical  |         Name | wPi | BCM |
        +-----+-----+--------------+-----++-----+--------------+-----+-----+
-       |     |     | 3v3          | #01 || #02 |          5v0 |     |     |       
-       |  02 |  08 | SDA1         | #03 || #04 |          5v0 |     |     |       
-       |  03 |  09 | SCL1         | #05 || #06 |          GND |     |     |       
-       |  04 |  07 | GPCLK0       | #07 || #08 |    UART0_TXD | 15  | 14  |       
-       |     |     | GND          | #09 || #10 |    UART0_RXD | 16  | 15  |       
-       |  17 |  00 | GPIO_0       | #11 || #12 | PCM_CLK/PWM0 | 01  | 18  |  DEFAUT_DATA     
-       |  27 |  02 | GPIO_2       | #13 || #14 |          GND |     |     |       
-       |  22 |  03 | GPIO_3       | #15 || #16 |       GPIO_4 | 04  | 23  |  DEFAULT_CLOCK     
-       |     |     | 3v3          | #01 || #18 |       GPIO_5 | 05  | 24  |       
-       |  10 |  12 | SPI0_MOSI    | #19 || #20 |          GND |     |     |       
-       |  09 |  13 | SPI0_MISO    | #21 || #22 |       GPIO_6 | 06  | 25  |       
-       |  11 |  14 | SPI0_CLK     | #23 || #24 |   SPI0_CS0_N | 10  | 08  |       
-       |     |     | GND          | #25 || #26 |   SPI0_CS1_N | 11  | 07  |       
-       |     |  30 | SDA0         | #27 || #28 |         SCL0 | 31  |     |       
-       |  05 |  21 | GPCLK1       | #29 || #30 |          GND |     |     |       
-       |  06 |  22 | GPCLK2       | #31 || #32 |         PWM0 | 26  | 12  |       
-       |  13 |  23 | PWM1         | #33 || #34 |          GND |     |     |       
-       |  19 |  24 | PCM_FS/PWM1  | #35 || #36 |      GPIO_27 | 27  | 16  |       
-       |  26 |  25 | GPIO_25      | #37 || #38 |      PCM_DIN | 28  | 20  |       
-       |     |     | GND          | #39 || #40 |     PCM_DOUT | 29  | 21  |       
+       |     |     | 3v3          | #01 || #02 |          5v0 |     |     |
+       |  02 |  08 | SDA1         | #03 || #04 |          5v0 |     |     |
+       |  03 |  09 | SCL1         | #05 || #06 |          GND |     |     |
+       |  04 |  07 | GPCLK0       | #07 || #08 |    UART0_TXD | 15  | 14  |
+       |     |     | GND          | #09 || #10 |    UART0_RXD | 16  | 15  |
+       |  17 |  00 | GPIO_0       | #11 || #12 | PCM_CLK/PWM0 | 01  | 18  |  DEFAULT_DATA
+       |  27 |  02 | GPIO_2       | #13 || #14 |          GND |     |     |
+       |  22 |  03 | GPIO_3       | #15 || #16 |       GPIO_4 | 04  | 23  |  DEFAULT_CLOCK
+       |     |     | 3v3          | #01 || #18 |       GPIO_5 | 05  | 24  |
+       |  10 |  12 | SPI0_MOSI    | #19 || #20 |          GND |     |     |
+       |  09 |  13 | SPI0_MISO    | #21 || #22 |       GPIO_6 | 06  | 25  |
+       |  11 |  14 | SPI0_CLK     | #23 || #24 |   SPI0_CS0_N | 10  | 08  |
+       |     |     | GND          | #25 || #26 |   SPI0_CS1_N | 11  | 07  |
+       |     |  30 | SDA0         | #27 || #28 |         SCL0 | 31  |     |
+       |  05 |  21 | GPCLK1       | #29 || #30 |          GND |     |     |
+       |  06 |  22 | GPCLK2       | #31 || #32 |         PWM0 | 26  | 12  |
+       |  13 |  23 | PWM1         | #33 || #34 |          GND |     |     |
+       |  19 |  24 | PCM_FS/PWM1  | #35 || #36 |      GPIO_27 | 27  | 16  |
+       |  26 |  25 | GPIO_25      | #37 || #38 |      PCM_DIN | 28  | 20  |
+       |     |     | GND          | #39 || #40 |     PCM_DOUT | 29  | 21  |
        +-----+-----+--------------+-----++-----+--------------+-----+-----+
        | BCM | wPi | Name         |  Physical  |         Name | wPi | BCM |
        +-----+-----+--------------+-----++-----+--------------+-----+-----+
@@ -34,12 +36,12 @@ import processing.io.*;
  * Pin numbers for method of the GPIO class are BCM numbers.
  */
 public class STH10 {
-  
+
   private boolean DEBUG = "true".equals(System.getProperty("sth10.verbose"));
-  
+
   private final static int DEFAULT_DATA_PIN = 18;
   private final static int DEFAULT_CLOCK_PIN = 23;
-  
+
   private byte statusRegister = 0x0;
 
   private final static double
@@ -52,16 +54,16 @@ public class STH10 {
       T2_SO = 0.00008;
 
   private int dataPin, clockPin;
-  
+
   public STH10() {
     this(DEFAULT_DATA_PIN, DEFAULT_CLOCK_PIN);
   }
-  
+
   public STH10(int data, int clock) {
-    
+
     this.dataPin = data;
     this.clockPin = clock;
-    
+
     if ("true".equals(System.getProperty("gpio.verbose"))) {
       println(String.format("GPIO> Opening GPIO (%s)", this.getClass().getName()));
     }
@@ -76,7 +78,7 @@ public class STH10 {
     }
     this.init();
   }
-  
+
   void init() {
     if (DEBUG) {
       println(">> Init >>");
@@ -91,7 +93,7 @@ public class STH10 {
       println("<< Init <<");
     }
   }
-  
+
   public double readTemperature() {
     byte cmd = COMMANDS.get(TEMPERATURE_CMD);
     this.sendCommandSHT(cmd);
@@ -129,7 +131,7 @@ public class STH10 {
     double humidity = ((t - 25) * (T1_S0 + (T2_SO * value)) + linearHumidity); // %
     return humidity;
   }
-  
+
   /**
    *
    * @return a 16 bit word.
@@ -170,7 +172,7 @@ public class STH10 {
     delay(15L, 0); // 15 ms
     this.statusRegister = 0x0;
   }
-  
+
   /**
    * pin is BCM pin#
    * state is GPIO.LOW or GPIO.HIGH
@@ -225,7 +227,7 @@ public class STH10 {
     if (!NativeInterface.isSimulated()) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
-  
+
       for (int i = 0; i < 8; i++) {
         this.flipPin(this.clockPin, GPIO.HIGH);
         int state = GPIO.digitalRead(this.dataPin);
@@ -251,16 +253,16 @@ public class STH10 {
     if (!NativeInterface.isSimulated()) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
-  
+
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.clockPin, GPIO.HIGH);
-  
+
       this.flipPin(this.dataPin, GPIO.LOW);
       this.flipPin(this.clockPin, GPIO.LOW);
-  
+
       this.flipPin(this.clockPin, GPIO.HIGH); // Clock first
       this.flipPin(this.dataPin, GPIO.HIGH);  // Data 2nd
-  
+
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
@@ -275,10 +277,10 @@ public class STH10 {
     if (!NativeInterface.isSimulated()) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
-  
+
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.clockPin, GPIO.HIGH);
-  
+
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
@@ -338,7 +340,7 @@ public class STH10 {
       if (DEBUG) {
         println(String.format(">> sendCommandSHT with measurement, %d", command));
       }
-      int state = (!NativeInterface.isSimulated() ? GPIO.digitalRead(this.dataPin) : GPIO.HIGH); 
+      int state = (!NativeInterface.isSimulated() ? GPIO.digitalRead(this.dataPin) : GPIO.HIGH);
       // SHT1x is taking measurement.
       if (state == GPIO.LOW) {
         throw new RuntimeException("SHT1x is not in the proper measurement state. DATA line is LOW.");
@@ -358,7 +360,7 @@ public class STH10 {
     if (!NativeInterface.isSimulated()) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
-  
+
       if (DEBUG) {
         println(String.format(">> getAck, flipping %d to HIGH", this.clockPin));
       }
@@ -387,7 +389,7 @@ public class STH10 {
     if (!NativeInterface.isSimulated()) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
-  
+
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.dataPin, GPIO.LOW);
       this.flipPin(this.clockPin, GPIO.HIGH);

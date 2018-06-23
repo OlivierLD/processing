@@ -11,6 +11,9 @@
 - MeArm robotic arm, using an I<small><sup>2</sup></small>C PCA9685 Servo board.
 - ...
 
+##### Receipies
+- How to Remote Debug a Processing Applet
+
 #### Small Notes
 On MacOS, in `build/build.xml`, change
 ```xml
@@ -28,8 +31,11 @@ Other systems:
 #### SSD1306
 ![BME280](./I2CSSD1306/RPi.SSD1306_bb.png)
 
-### MCP3008 & SSD1306
+#### MCP3008 & SSD1306
 ![MCP3008 and SSD1306](./I2CandSPI/RPi.SSD1306.MCP3008_bb.png)
+
+#### STH10
+![STH10](./GPIOSTH10/RaspberryPI.STH10_bb.png)
 
 ## Screenshots
 ### BME280
@@ -51,5 +57,7 @@ Other systems:
 
 ![On the PI](./I2CandSPI/Rpi.SPI.I2C.jpg)
 
+### STH10
+![On Processing](./GPIOSTH10/sth10.at.work.png)
 
 ---
