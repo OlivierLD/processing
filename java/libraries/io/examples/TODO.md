@@ -1,14 +1,14 @@
 ## Hardware-IO examples to provide
 
-- BME280, I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity. &#9989; Done
-- BME280, I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity, with anaolg displays. &#9989; Done
-- BMP180, I<small><sup>2</sup></small>C sensor, Temperature, Pressure
-- LSM303, I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
-- STH10, temperature and humidity sensor.  &#10140; WIP
-- Enhanced SSD1306 (I<small><sup>2</sup></small>C). &#9989; Done
-- Mixing MCP3008 and SSD1306 (SPI & I<small><sup>2</sup></small>C). &#9989; Done
-- ADS 1x15, I<small><sup>2</sup></small>C ADC.
-- MeArm robotic arm, using an I<small><sup>2</sup></small>C PCA9685 Servo board.
+- [BME280](https://www.adafruit.com/product/2652), I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity. &#9989; Done
+- [BME280](https://www.adafruit.com/product/2652), I<small><sup>2</sup></small>C sensor, Temperature, Pressure, Humidity, with anaolg displays. &#9989; Done
+- [BMP180](https://www.adafruit.com/product/1603), I<small><sup>2</sup></small>C sensor, Temperature, Pressure
+- [LSM303](https://www.adafruit.com/product/1120), I<small><sup>2</sup></small>C sensor, magnetometer, accelerometer
+- [STH10](https://www.adafruit.com/product/1298), temperature and humidity sensor.  &#10140; WIP
+- Enhanced [SSD1306](https://www.adafruit.com/product/3527) (I<small><sup>2</sup></small>C). &#9989; Done
+- Mixing [MCP3008](https://www.adafruit.com/product/856) and [SSD1306](https://www.adafruit.com/product/3527) (SPI & I<small><sup>2</sup></small>C). &#9989; Done
+- [ADS1x15](https://www.adafruit.com/product/1083), I<small><sup>2</sup></small>C ADC.
+- [MeArm](https://shop.mime.co.uk/collections/mearm/products/mearm-your-robot-nuka-cola-blue?variant=4766020165) robotic arm, using an I<small><sup>2</sup></small>C [PCA9685](https://www.adafruit.com/product/815) Servo board.
 - ...
 
 ##### Recipes
