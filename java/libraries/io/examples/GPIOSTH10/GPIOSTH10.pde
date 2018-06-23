@@ -2,8 +2,12 @@ import processing.io.*;
 
 STH10 sth10;
 
+int DATA = 18,
+    CLOCK = 23;
+    
 void setup() {
-	sth10 = new STH10(18, 23);
+  System.setProperty("sth10.verbose", "true");
+	sth10 = new STH10(DATA, CLOCK);
 }
 
 void draw() {
