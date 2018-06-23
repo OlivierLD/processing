@@ -90,7 +90,7 @@ Then, on the remote debugger, in IntelliJ - or your IDE - start the remote debug
 You should be all set, you can now do whatever your debugger can do, see variables, change their values,
 set all the break points you want, drill into methods...
 
-![IntelliJ](./rd.03.png)
+![IntelliJ](./rd.04.png)
 
 Happy debugging!
 
