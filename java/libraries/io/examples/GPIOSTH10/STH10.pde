@@ -84,12 +84,12 @@ class STH10 {
 
   void init() {
     if (DEBUG) {
-      println(String.format(">> Init >>\telapsed:%d", elapsed()));
+      println(String.format(">> Init >>\telapsed:\t%d", elapsed()));
     }
     this.resetConnection();
     byte mask = 0x0;
     if (DEBUG) {
-      println(String.format(">> Init, writeStatusRegister, with mask %s >>\telapsed:%d", lpad(Integer.toBinaryString(mask), 8, "0"), elapsed()));
+      println(String.format(">> Init, writeStatusRegister, with mask %s >>\telapsed:\t%d", lpad(Integer.toBinaryString(mask), 8, "0"), elapsed()));
     }
     this.writeStatusRegister(mask);
     if (DEBUG) {
@@ -104,7 +104,7 @@ class STH10 {
     if (!simulating) {
       value = this.readMeasurement();
       if (DEBUG) {
-        println(String.format(">> Read temperature raw value %d, 0x%s\telapsed:%d", value, lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+        println(String.format(">> Read temperature raw value %d, 0x%s\telapsed:\t%d", value, lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
       }
       return (value * D2_SO_C) + (D1_VDD_C); // Celcius
     } else {
@@ -129,7 +129,7 @@ class STH10 {
     if (!simulating) {
       value = this.readMeasurement();
       if (DEBUG) {
-        println(String.format(">> Read humidity raw value %d, 0x%s\telapsed:%d", value, lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+        println(String.format(">> Read humidity raw value %d, 0x%s\telapsed:\t%d", value, lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
       }
       double linearHumidity = C1_SO + (C2_SO * value) + (C3_SO * Math.pow(value, 2));
       double humidity = ((t - 25) * (T1_S0 + (T2_SO * value)) + linearHumidity); // %
@@ -149,14 +149,14 @@ class STH10 {
     byte msb = this.getByte();
     value = (msb << 8);
     if (DEBUG) {
-      println(String.format(">>> After MSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+      println(String.format(">>> After MSB: %s\telapsed:\t%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
     }
     this.sendAck();
     // LSB
     byte lsb = this.getByte();
     value |= (lsb & 0xFF);
     if (DEBUG) {
-      println(String.format(">>> After LSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+      println(String.format(">>> After LSB: %s\telapsed:\t%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
     }
     this.endTx();
     return (value);
@@ -186,25 +186,25 @@ class STH10 {
    */
   void flipPin(int pin, int state) {
     if (DEBUG) {
-      println(String.format(">> flipPin %d to %s\telapsed:%d", pin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
+      println(String.format(">> flipPin %d to %s\telapsed:\t%d", pin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
     }
     if (!simulating) {
       GPIO.digitalWrite(pin, state);
       if (pin == this.clockPin) {
         if (DEBUG) {
-          println(String.format("   >> Flipping CLK, delaying\telapsed:%d", elapsed()));
+          println(String.format("   >> Flipping CLK, delaying\telapsed:\t%d", elapsed()));
         }
         delay(0L, 100); // 0.1 * 1E-6 sec. 100 * 1E-9
       }
     }
     if (DEBUG) {
-      println(String.format("-- pin is now %s\telapsed:%d", (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
+      println(String.format("-- pin is now %s\telapsed:\t%d", (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
     }
   }
 
   void sendByte(byte data) {
     if (DEBUG) {
-      println(String.format(">> sendByte %d [%s]\telapsed:%d", data, lpad(Integer.toBinaryString(data), 8,"0"), elapsed()));
+      println(String.format(">> sendByte %d [%s]\telapsed:\t%d", data, lpad(Integer.toBinaryString(data), 8,"0"), elapsed()));
     }
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
@@ -213,7 +213,7 @@ class STH10 {
     for (int i=0; i<8; i++) {
       int bit = data & (1 << (7 - i));
       if (DEBUG) {
-        println(String.format("  -- Bit #%d, %d, %s\telapsed:%d", (i + 1), bit, (bit == 0 ? "LOW" : "HIGH"), elapsed()));
+        println(String.format("  -- Bit #%d, %d, %s\telapsed:\t%d", (i + 1), bit, (bit == 0 ? "LOW" : "HIGH"), elapsed()));
       }
       this.flipPin(this.dataPin, (bit == 0 ? GPIO.LOW : GPIO.HIGH));
 
@@ -221,13 +221,13 @@ class STH10 {
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
-      println(String.format("<< sendByte << \telapsed:%d", elapsed()));
+      println(String.format("<< sendByte << \telapsed:\t%d", elapsed()));
     }
   }
 
   byte getByte() {
     if (DEBUG) {
-      println(String.format(">> getByte >>\telapsed:%d", elapsed()));
+      println(String.format(">> getByte >>\telapsed:\t%d", elapsed()));
     }
     byte b = 0x0;
 
@@ -242,20 +242,20 @@ class STH10 {
           b |= (1 << (7 - i));
         }
         if (DEBUG) {
-          println(String.format(" -- getting byte %d, byte is %s\telapsed:%d", i, lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
+          println(String.format(" -- getting byte %d, byte is %s\telapsed:\t%d", i, lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
         }
         this.flipPin(this.clockPin, GPIO.LOW);
       }
     }
     if (DEBUG) {
-      println(String.format("<< getByte %d 0b%s <<\telapsed:%d", (b & 0x00FF), lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
+      println(String.format("<< getByte %d 0b%s <<\telapsed:\t%d", (b & 0x00FF), lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
     }
     return (byte)(b & 0x00FF);
   }
 
   void startTx() {
     if (DEBUG) {
-      println(String.format(">> startTx >>\telapsed:%d", elapsed()));
+      println(String.format(">> startTx >>\telapsed:\t%d", elapsed()));
     }
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
@@ -273,13 +273,13 @@ class STH10 {
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
-      println(String.format("<< startTx <<\telapsed:%d", elapsed()));
+      println(String.format("<< startTx <<\telapsed:\t%d", elapsed()));
     }
   }
 
   void endTx() {
     if (DEBUG) {
-      println(String.format(">> endTx >>\telapsed:%d", elapsed()));
+      println(String.format(">> endTx >>\telapsed:\t%d", elapsed()));
     }
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
@@ -291,27 +291,27 @@ class STH10 {
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
-      println(String.format("<< endTx <<\telapsed:%d", elapsed()));
+      println(String.format("<< endTx <<\telapsed:\t%d", elapsed()));
     }
   }
 
   void writeStatusRegister(byte mask) {
     if (DEBUG) {
-      println(String.format(">> writeStatusRegister, mask %d >>\telapsed:%d", mask, elapsed()));
+      println(String.format(">> writeStatusRegister, mask %d >>\telapsed:\t%d", mask, elapsed()));
     }
     byte cmd = COMMANDS.get(WRITE_STATUS_REGISTER_CMD);
     if (DEBUG) {
-      println(String.format(">> writeStatusRegister, sendCommandSHT, cmd %d\telapsed:%d", cmd, elapsed()));
+      println(String.format(">> writeStatusRegister, sendCommandSHT, cmd %d\telapsed:\t%d", cmd, elapsed()));
     }
     this.sendCommandSHT(cmd, false);
     this.sendByte(mask);
     if (DEBUG) {
-      println(String.format(">> writeStatusRegister, getAck, cmd %d\telapsed:%d", cmd, elapsed()));
+      println(String.format(">> writeStatusRegister, getAck, cmd %d\telapsed:\t%d", cmd, elapsed()));
     }
     this.getAck(WRITE_STATUS_REGISTER_CMD);
     this.statusRegister = mask;
     if (DEBUG) {
-      println(String.format("<< writeStatusRegister, mask %d <<\telapsed:%d", mask, elapsed()));
+      println(String.format("<< writeStatusRegister, mask %d <<\telapsed:\t%d", mask, elapsed()));
     }
   }
 
@@ -324,7 +324,7 @@ class STH10 {
   }
   void sendCommandSHT(byte command, boolean measurement) {
     if (DEBUG) {
-      println(String.format(">> sendCommandSHT %d >>\telapsed:%d", command, elapsed()));
+      println(String.format(">> sendCommandSHT %d >>\telapsed:\t%d", command, elapsed()));
     }
     if (!COMMANDS.containsValue(command)) {
       throw new RuntimeException(String.format("Command 0b%8s not found.", lpad(Integer.toBinaryString(command), 8, "0")));
@@ -345,7 +345,7 @@ class STH10 {
 
     if (measurement) {
       if (DEBUG) {
-        println(String.format(">> sendCommandSHT with measurement, %d\telapsed:%d", command, elapsed()));
+        println(String.format(">> sendCommandSHT with measurement, %d\telapsed:\t%d", command, elapsed()));
       }
       int state = (!simulating ? GPIO.digitalRead(this.dataPin) : GPIO.HIGH);
       // SHT1x is taking measurement.
@@ -355,40 +355,40 @@ class STH10 {
       this.waitForResult();
     }
     if (DEBUG) {
-      println(String.format("<< sendCommandSHT <<\telapsed:%d", elapsed()));
+      println(String.format("<< sendCommandSHT <<\telapsed:\t%d", elapsed()));
     }
   }
 
   void getAck(String commandName) {
     if (DEBUG) {
-      println(String.format(">> getAck, command %s >>\telapsed:%d", commandName, elapsed()));
-      println(String.format(">> %d INPUT %d OUTPUT\telapsed:%d", this.dataPin, this.clockPin, elapsed()));
+      println(String.format(">> getAck, command %s >>\telapsed:\t%d", commandName, elapsed()));
+      println(String.format(">> %d INPUT %d OUTPUT\telapsed:\t%d", this.dataPin, this.clockPin, elapsed()));
     }
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
       if (DEBUG) {
-        println(String.format(">> getAck, flipping %d to HIGH\telapsed:%d", this.clockPin, elapsed()));
+        println(String.format(">> getAck, flipping %d to HIGH\telapsed:\t%d", this.clockPin, elapsed()));
       }
       this.flipPin(this.clockPin, GPIO.HIGH);
       if (DEBUG) {
-        println(String.format(">> getAck, >>> getState %d\telapsed:%d", this.clockPin, elapsed()));
+        println(String.format(">> getAck, >>> getState %d\telapsed:\t%d", this.clockPin, elapsed()));
       }
       int state = GPIO.digitalRead(this.dataPin);
       if (DEBUG) {
-        println(String.format(">> getAck, getState %d = %s\telapsed:%d", this.dataPin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
+        println(String.format(">> getAck, getState %d = %s\telapsed:\t%d", this.dataPin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
       }
       if (state == GPIO.HIGH) {
         throw new RuntimeException(String.format("SHTx failed to properly receive ack after command [%s, 0b%8s]", commandName, lpad(Integer.toBinaryString(COMMANDS.get(commandName)), 8, "0")));
       }
       if (DEBUG) {
-        println(String.format(">> getAck, flipping %d to LOW\telapsed:%d", this.clockPin, elapsed()));
+        println(String.format(">> getAck, flipping %d to LOW\telapsed:\t%d", this.clockPin, elapsed()));
       }
       this.flipPin(this.clockPin, GPIO.LOW);
     }
     if (DEBUG) {
-      println(String.format("<< getAck <<\telapsed:%d", elapsed()));
+      println(String.format("<< getAck <<\telapsed:\t%d", elapsed()));
     }
   }
 
@@ -415,12 +415,12 @@ class STH10 {
         state = GPIO.digitalRead(this.dataPin);
         if (state == GPIO.LOW) {
           if (DEBUG) {
-            println(String.format(">> waitForResult completed iteration %d\telapsed:%d", t, elapsed()));
+            println(String.format(">> waitForResult completed iteration %d\telapsed:\t%d", t, elapsed()));
           }
           break;
         } else {
           if (DEBUG) {
-            println(String.format(">> waitForResult still waiting - iteration %d\telapsed:%d", t, elapsed()));
+            println(String.format(">> waitForResult still waiting - iteration %d\telapsed:\t%d", t, elapsed()));
           }
         }
       }
