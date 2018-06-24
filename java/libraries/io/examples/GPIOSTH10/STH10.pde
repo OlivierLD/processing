@@ -54,6 +54,7 @@ class STH10 {
       T2_SO = 0.00008;
 
   private int dataPin, clockPin;
+  private boolean simulating = NativeInterface.isSimulated();
 
   public STH10() {
     this(DEFAULT_DATA_PIN, DEFAULT_CLOCK_PIN);
@@ -68,7 +69,7 @@ class STH10 {
       println(String.format("GPIO> Opening GPIO (%s)", this.getClass().getName()));
     }
 
-    if (NativeInterface.isSimulated()) {
+    if (simulating) {
        if ("true".equals(System.getProperty("gpio.verbose"))) {
           println(String.format("GPIO> Will simulate (for %s)", this.getClass().getName()));
        }
@@ -98,7 +99,7 @@ class STH10 {
     byte cmd = COMMANDS.get(TEMPERATURE_CMD);
     this.sendCommandSHT(cmd);
     int value = 0;
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       value = this.readMeasurement();
       if (DEBUG) {
         println(String.format(">> Read temperature raw value %d, 0x%s", value, lpad(Integer.toBinaryString(value), 16, "0")));
@@ -123,7 +124,7 @@ class STH10 {
     byte cmd = COMMANDS.get(HUMIDITY_CMD);
     this.sendCommandSHT(cmd);
     int value = 0;
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       value = this.readMeasurement();
       if (DEBUG) {
         println(String.format(">> Read humidity raw value %d, 0x%s", value, lpad(Integer.toBinaryString(value), 16, "0")));
@@ -185,7 +186,7 @@ class STH10 {
     if (DEBUG) {
       print(String.format(">> flipPin %d to %s", pin, (state == GPIO.HIGH ? "HIGH" : "LOW")));
     }
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.digitalWrite(pin, state);
       if (pin == this.clockPin) {
         if (DEBUG) {
@@ -203,7 +204,7 @@ class STH10 {
     if (DEBUG) {
       println(String.format(">> sendByte %d [%s]", data, lpad(Integer.toBinaryString(data), 8,"0")));
     }
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
     }
@@ -228,7 +229,7 @@ class STH10 {
     }
     byte b = 0x0;
 
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
@@ -254,7 +255,7 @@ class STH10 {
     if (DEBUG) {
       println(String.format(">> startTx >>"));
     }
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
@@ -278,7 +279,7 @@ class STH10 {
     if (DEBUG) {
       println(String.format(">> endTx >>"));
     }
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
@@ -344,7 +345,7 @@ class STH10 {
       if (DEBUG) {
         println(String.format(">> sendCommandSHT with measurement, %d", command));
       }
-      int state = (!NativeInterface.isSimulated() ? GPIO.digitalRead(this.dataPin) : GPIO.HIGH);
+      int state = (!simulating ? GPIO.digitalRead(this.dataPin) : GPIO.HIGH);
       // SHT1x is taking measurement.
       if (state == GPIO.LOW) {
         throw new RuntimeException("SHT1x is not in the proper measurement state. DATA line is LOW.");
@@ -361,7 +362,7 @@ class STH10 {
       println(String.format(">> getAck, command %s >>", commandName));
       println(String.format(">> %d INPUT %d OUTPUT", this.dataPin, this.clockPin));
     }
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
@@ -390,7 +391,7 @@ class STH10 {
   }
 
   void sendAck() {
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
 
@@ -405,7 +406,7 @@ class STH10 {
 
   void waitForResult() {
     int state = GPIO.HIGH;
-    if (!NativeInterface.isSimulated()) {
+    if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       for (int t = 0; t < NB_TRIES; t++) {
         delay(10L, 0);
