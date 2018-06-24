@@ -2,6 +2,10 @@ import java.util.*;
 import processing.io.*;
 
 /**
+ * Note: The GPIO.pinMode is a demanding operation.
+ * Should/could be improved, there are some Thread.sleep that make the flip from input and output
+ * longer than it should. Will look into it.
+ *
  * STH10, Temperature, Humidity.
  * Mesh-protected Weather-proof Temperature/Humidity Sensor - SHT10
  * https://www.adafruit.com/product/1298
@@ -38,7 +42,7 @@ import processing.io.*;
 class STH10 {
 
   private boolean DEBUG = "true".equals(System.getProperty("sth10.verbose"));
-  
+
   private long lastPlot = System.currentTimeMillis();
   private String previousOp = "none";
 
@@ -441,7 +445,7 @@ class STH10 {
     previousOp = onOp;
     return diff;
   }
-  
+
   void delay(long ms, int nano) {
     try {
       Thread.sleep(ms, nano);
