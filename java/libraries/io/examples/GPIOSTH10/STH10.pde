@@ -186,13 +186,13 @@ class STH10 {
    */
   void flipPin(int pin, int state) {
     if (DEBUG) {
-      print(String.format(">> flipPin %d to %s\telapsed:%d", pin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
+      println(String.format(">> flipPin %d to %s\telapsed:%d", pin, (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
     }
     if (!simulating) {
       GPIO.digitalWrite(pin, state);
       if (pin == this.clockPin) {
         if (DEBUG) {
-          print(String.format("   >> Flipping CLK, delaying\telapsed:%d", elapsed()));
+          println(String.format("   >> Flipping CLK, delaying\telapsed:%d", elapsed()));
         }
         delay(0L, 100); // 0.1 * 1E-6 sec. 100 * 1E-9
       }
