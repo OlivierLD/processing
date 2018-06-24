@@ -42,6 +42,8 @@ Other systems:
 #### ADS1x15
 ![ADS1x15](./I2CADS1x15/RPi-ADS1115.Pot_bb.png)
 
+> Note: Wiring is the same for `ADS1015` and `ADS1115`.
+
 ---
 
 ## Screenshots
