@@ -7,7 +7,7 @@
 - [STH10](https://www.adafruit.com/product/1298), temperature and humidity sensor.  &#10140; WIP
 - Enhanced [SSD1306](https://www.adafruit.com/product/3527) (I<small><sup>2</sup></small>C). &#9989; Done
 - Mixing [MCP3008](https://www.adafruit.com/product/856) and [SSD1306](https://www.adafruit.com/product/3527) (SPI & I<small><sup>2</sup></small>C). &#9989; Done
-- [ADS1x15](https://www.adafruit.com/product/1083), I<small><sup>2</sup></small>C ADC.  &#10140; WIP
+- [ADS1x15](https://www.adafruit.com/product/1083), I<small><sup>2</sup></small>C ADC. &#9989; Done
 - [MeArm](https://shop.mime.co.uk/collections/mearm/products/mearm-your-robot-nuka-cola-blue?variant=4766020165) robotic arm, using an I<small><sup>2</sup></small>C [PCA9685](https://www.adafruit.com/product/815) Servo board.
 - ...
 
@@ -66,5 +66,9 @@ Other systems:
 
 ### STH10
 ![On Processing](./GPIOSTH10/sth10.at.work.png)
+
+### ADS1015
+![On Processing](./I2CADS1x15/Potentiometer.png)
+
 
 ---
