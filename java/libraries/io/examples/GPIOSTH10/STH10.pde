@@ -149,14 +149,14 @@ class STH10 {
     byte msb = this.getByte();
     value = (msb << 8);
     if (DEBUG) {
-      println(String.format("\t After MSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+      println(String.format(">>> After MSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
     }
     this.sendAck();
     // LSB
     byte lsb = this.getByte();
     value |= (lsb & 0xFF);
     if (DEBUG) {
-      println(String.format("\t After LSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
+      println(String.format(">>> After LSB: %s\telapsed:%d", lpad(Integer.toBinaryString(value), 16, "0"), elapsed()));
     }
     this.endTx();
     return (value);
@@ -198,7 +198,7 @@ class STH10 {
       }
     }
     if (DEBUG) {
-      println(String.format("\tpin is now %s\telapsed:%d", (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
+      println(String.format("-- pin is now %s\telapsed:%d", (state == GPIO.HIGH ? "HIGH" : "LOW"), elapsed()));
     }
   }
 
@@ -213,7 +213,7 @@ class STH10 {
     for (int i=0; i<8; i++) {
       int bit = data & (1 << (7 - i));
       if (DEBUG) {
-        println(String.format("\t\tBit #%d, %d, %s\telapsed:%d", (i + 1), bit, (bit == 0 ? "LOW" : "HIGH"), elapsed()));
+        println(String.format("  -- Bit #%d, %d, %s\telapsed:%d", (i + 1), bit, (bit == 0 ? "LOW" : "HIGH"), elapsed()));
       }
       this.flipPin(this.dataPin, (bit == 0 ? GPIO.LOW : GPIO.HIGH));
 
@@ -242,7 +242,7 @@ class STH10 {
           b |= (1 << (7 - i));
         }
         if (DEBUG) {
-          println(String.format("\tgetting byte %d, byte is %s\telapsed:%d", i, lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
+          println(String.format(" -- getting byte %d, byte is %s\telapsed:%d", i, lpad(Integer.toBinaryString(b & 0x00FF), 8, "0"), elapsed()));
         }
         this.flipPin(this.clockPin, GPIO.LOW);
       }
@@ -373,7 +373,7 @@ class STH10 {
       }
       this.flipPin(this.clockPin, GPIO.HIGH);
       if (DEBUG) {
-        println(String.format("\t>> getAck, >>> getState %d\telapsed:%d", this.clockPin, elapsed()));
+        println(String.format(">> getAck, >>> getState %d\telapsed:%d", this.clockPin, elapsed()));
       }
       int state = GPIO.digitalRead(this.dataPin);
       if (DEBUG) {
