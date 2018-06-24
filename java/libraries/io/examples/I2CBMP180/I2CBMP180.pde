@@ -23,5 +23,5 @@ void draw() {
     ex.printStackTrace();
   }
   text(String.format("Temp:  %.02f\272C", temp), 10, 75);
-  text(String.format("Press: %.02f hPa", press / 100f), 10, 135);
+  text(String.format("Press: %.02f hPa", press / 100f), 10, 145);
 }
