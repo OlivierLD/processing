@@ -24,6 +24,8 @@ Other systems:
   <property name="jdk.update" value="172" />
 ```
 
+---
+
 ## Wiring Diagrams
 #### BME280
 ![BME280](./I2CBME280/RPi.BME280_bb.png)
@@ -36,6 +38,11 @@ Other systems:
 
 #### STH10
 ![STH10](./GPIOSTH10/RaspberryPI.STH10_bb.png)
+
+#### ADS1x15
+![ADS1x15](./I2CADS1x15/RPi-ADS1115.Pot_bb.png)
+
+---
 
 ## Screenshots
 ### BME280
