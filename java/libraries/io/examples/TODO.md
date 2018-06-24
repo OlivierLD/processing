@@ -30,6 +30,9 @@ Other systems:
 #### BME280
 ![BME280](./I2CBME280/RPi.BME280_bb.png)
 
+#### BMP180
+![BMP180](./I2CBMP180/RPi.BMP180_bb.png)
+
 #### SSD1306
 ![BME280](./I2CSSD1306/RPi.SSD1306_bb.png)
 
