@@ -8,6 +8,7 @@
 - Enhanced [SSD1306](https://www.adafruit.com/product/3527) (I<small><sup>2</sup></small>C). &#9989; Done
 - Mixing [MCP3008](https://www.adafruit.com/product/856) and [SSD1306](https://www.adafruit.com/product/3527) (SPI & I<small><sup>2</sup></small>C). &#9989; Done
 - [ADS1x15](https://www.adafruit.com/product/1083), I<small><sup>2</sup></small>C ADC. &#9989; Done
+- [VL53L0X](https://www.adafruit.com/product/3317), I<small><sup>2</sup></small>C Time of Flight Distance Sensor.
 - [MeArm](https://shop.mime.co.uk/collections/mearm/products/mearm-your-robot-nuka-cola-blue?variant=4766020165) robotic arm, using an I<small><sup>2</sup></small>C [PCA9685](https://www.adafruit.com/product/815) Servo board.
 - ...
 

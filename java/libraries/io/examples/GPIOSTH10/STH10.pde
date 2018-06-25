@@ -83,6 +83,9 @@ class STH10 {
     } else {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> Constructor >>\telapsed:\t%d\tlastOp was\t%s", elapsed("STH10 - pinMode"), previousOp));
+      }
     }
     this.init();
   }
@@ -170,6 +173,9 @@ class STH10 {
   void resetConnection() {
     GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
     GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+    if (DEBUG) {
+      println(String.format(">> resetConnection >>\telapsed:\t%d\tlastOp was\t%s", elapsed("resetConnection - pinMode"), previousOp));
+    }
 
     this.flipPin(this.dataPin, GPIO.HIGH);
     for (int i = 0; i < 10; i++) {
@@ -214,6 +220,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> sendByte >>\telapsed:\t%d\tlastOp was\t%s", elapsed("sendByte - pinMode"), previousOp));
+      }
     }
     for (int i=0; i<8; i++) {
       int bit = data & (1 << (7 - i));
@@ -239,6 +248,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> getByte >>\telapsed:\t%d\tlastOp was\t%s", elapsed("getByte - pinMode"), previousOp));
+      }
 
       for (int i = 0; i < 8; i++) {
         this.flipPin(this.clockPin, GPIO.HIGH);
@@ -265,6 +277,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> startTx >>\telapsed:\t%d\tlastOp was\t%s", elapsed("startTx - pinMode"), previousOp));
+      }
 
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.clockPin, GPIO.HIGH);
@@ -289,6 +304,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> endTx >>\telapsed:\t%d\tlastOp was\t%s", elapsed("endTx - pinMode"), previousOp));
+      }
 
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.clockPin, GPIO.HIGH);
@@ -372,6 +390,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.INPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> getAck >>\telapsed:\t%d\tlastOp was\t%s", elapsed("getAck - pinMode"), previousOp));
+      }
 
       if (DEBUG) {
         println(String.format(">> getAck, flipping %d to HIGH\telapsed:\t%d\tlastOp was\t%s", this.clockPin, elapsed("getAck - 3"), previousOp));
@@ -401,6 +422,9 @@ class STH10 {
     if (!simulating) {
       GPIO.pinMode(this.dataPin, GPIO.OUTPUT);
       GPIO.pinMode(this.clockPin, GPIO.OUTPUT);
+      if (DEBUG) {
+        println(String.format(">> sendAck >>\telapsed:\t%d\tlastOp was\t%s", elapsed("sendAck - pinMode"), previousOp));
+      }
 
       this.flipPin(this.dataPin, GPIO.HIGH);
       this.flipPin(this.dataPin, GPIO.LOW);
