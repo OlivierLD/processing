@@ -12,13 +12,10 @@ size(400, 400);
   stroke(255);
   noFill();
   textSize(72); 
-  System.setProperty("ads1x15.verbose", "false");
-  ads1015 = new ADS1x15(ADC_TYPE);
+  ads1015 = new ADS1x15(I2C.list()[0], ADC_TYPE, ADS1x15.ADS1x15_ADDRESS);
 }
 
-/**
- * Values range fro 0 to 3300
- */
+// Values range from 0 to 3300 (3.3V), see the wiring. 
 void draw() {
   background(0);
   stroke(255);

@@ -1,17 +1,20 @@
 import processing.io.I2C;
 
-/**
- * ADS1015 and ADS1115.
- * Both share the same address.
- * I2C Interface ADC
- */
+// ADS1015 and ADS1115.
+// I2C Interface ADC
+// Both share the same address.
+// datasheets:
+//    https://cdn-shop.adafruit.com/datasheets/ads1015.pdf
+//    https://cdn-shop.adafruit.com/datasheets/ads1115.pdf
+// code contributed by @OlivierLD
+
 public class ADS1x15 extends I2C {
   boolean verbose = ("true".equals(System.getProperty("ads1x.verbose", "false")));
 
   final static String DEFAULT_BUS = "i2c-1";
 
   private int address;
-  private final static int ADS1x15_ADDRESS = 0x48;
+  public final static int ADS1x15_ADDRESS = 0x48;
   // Pointer Register
   public final static int ADS1015_REG_POINTER_MASK = 0x03;
   public final static int ADS1015_REG_POINTER_CONVERT = 0x00;
@@ -119,29 +122,11 @@ public class ADS1x15 extends I2C {
     this.pga = pgaADS1x15.ADS1015_REG_CONFIG_PGA_6_144V.meaning();
   }
 
-  private void command(int reg, byte val) {
-    super.beginTransmission(this.address);
-    super.write(reg);
-    super.write(val);
-    super.endTransmission();
-  }
-
   private void command(int reg, byte[] val) {
     super.beginTransmission(this.address);
     super.write(reg);
     super.write(val);
     super.endTransmission();
-  }
-
-  void delay(double delay) {
-    long ms = (long) Math.floor(delay);
-    int ns = (int) ((delay - ms) * 1E6);
-//  println("Delay:" + delay + " ms:" + ms + ", ns:" + ns);
-    try {
-      Thread.sleep(ms, ns);
-    } catch (InterruptedException ie) {
-      ie.printStackTrace();
-    }
   }
 
   public float readADCSingleEnded() {
@@ -203,12 +188,12 @@ public class ADS1x15 extends I2C {
 
     // Write config register to the ADC
     byte[] bytes = {(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
 
     // Wait for the ADC conversion to complete
     // The minimum delay depends on the sps: delay >= 1/sps
     // We add 0.1ms to be sure
-    double delay = ((1000 / sps) + 0.1);
+    int delay = (int)Math.round((1000 / sps) + 0.1);
     delay(delay);
 
     // Read the conversion results
@@ -268,7 +253,7 @@ public class ADS1x15 extends I2C {
     // Write config register to the ADC
     byte[] bytes = {(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
 
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
 
     // Wait for the ADC conversion to complete
     // The minimum delay depends on the sps: delay >= 1/sps
@@ -397,7 +382,7 @@ public class ADS1x15 extends I2C {
     // Once we write the ADC will convert continously
     // we can read the next values using getLastConversionResult
     byte[] bytes = {(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
 
     // Wait for the ADC conversion to complete
     // The minimum delay depends on the sps: delay >= 1/sps
@@ -470,7 +455,7 @@ public class ADS1x15 extends I2C {
     // Once we write the ADC will convert continously
     // we can read the next values using getLastConversionResult
     byte[] bytes = {(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
 
     // Wait for the ADC conversion to complete
     // The minimum delay depends on the sps: delay >= 1/sps
@@ -492,7 +477,7 @@ public class ADS1x15 extends I2C {
     // enter power-off mode.
     int config = 0x8583; // Page 18 datasheet.
     byte[] bytes = {(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
     return true;
   }
 
@@ -593,7 +578,7 @@ public class ADS1x15 extends I2C {
       thresholdHighWORD = (int) (thresholdHigh * (32767.0 / pga));
     }
     byte[] bytes = {(byte) ((thresholdHighWORD >> 8) & 0xFF), (byte) (thresholdHighWORD & 0xFF)};
-    this.command(ADS1015_REG_POINTER_HITHRESH, bytes);
+    command(ADS1015_REG_POINTER_HITHRESH, bytes);
 
     int thresholdLowWORD = 0;
     if (this.adcType == ICType.IC_ADS1015) {
@@ -602,13 +587,13 @@ public class ADS1x15 extends I2C {
       thresholdLowWORD = (int) (thresholdLow * (32767.0 / pga));
     }
     bytes = new byte[]{(byte) ((thresholdLowWORD >> 8) & 0xFF), (byte) (thresholdLowWORD & 0xFF)};
-    this.command(ADS1015_REG_POINTER_LOWTHRESH, bytes);
+    command(ADS1015_REG_POINTER_LOWTHRESH, bytes);
 
     // Write config register to the ADC
     // Once we write the ADC will convert continously and alert when things happen,
     // we can read the converted values using getLastConversionResult
     bytes = new byte[]{(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
   }
 
   public void startDifferentialComparator(Channels chP, Channels chN, int thresholdHigh, int thresholdLow) {
@@ -707,7 +692,7 @@ public class ADS1x15 extends I2C {
       thresholdHighWORD = (int) (thresholdHigh * (32767.0 / pga));
     }
     byte[] bytes = {(byte) ((thresholdHighWORD >> 8) & 0xFF), (byte) (thresholdHighWORD & 0xFF)};
-    this.command(ADS1015_REG_POINTER_HITHRESH, bytes);
+    command(ADS1015_REG_POINTER_HITHRESH, bytes);
 
     int thresholdLowWORD = 0;
     if (this.adcType == ICType.IC_ADS1015) {
@@ -716,13 +701,13 @@ public class ADS1x15 extends I2C {
       thresholdLowWORD = (int) (thresholdLow * (32767.0 / pga));
     }
     bytes = new byte[]{(byte) ((thresholdLowWORD >> 8) & 0xFF), (byte) (thresholdLowWORD & 0xFF)};
-    this.command(ADS1015_REG_POINTER_LOWTHRESH, bytes);
+    command(ADS1015_REG_POINTER_LOWTHRESH, bytes);
 
     // Write config register to the ADC
     // Once we write the ADC will convert continously and alert when things happen,
     // we can read the converted values using getLastConversionResult
     bytes = new byte[]{(byte) ((config >> 8) & 0xFF), (byte) (config & 0xFF)};
-    this.command(ADS1015_REG_POINTER_CONFIG, bytes);
+    command(ADS1015_REG_POINTER_CONFIG, bytes);
   }
 
   private float readConversionResult() {

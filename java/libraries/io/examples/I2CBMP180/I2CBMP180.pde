@@ -3,10 +3,9 @@ import processing.io.*;
 BMP180 bmp180;
 
 void setup() {
-  size(720, 280);
+  size(700, 180);
   textSize(72);
-  System.setProperty("bmp180.verbose", "false");
-  bmp180 = new BMP180();
+  bmp180 = new BMP180(I2C.list()[0], BMP180.BMP180_I2CADDRESS);
 }
 
 float temp = 0f, press = 0f;
@@ -19,6 +18,8 @@ void draw() {
     press = bmp180.readPressure();
   } catch (ArithmeticException ae) {
     println("Not on a PI? No device?");
+    temp = 20f;
+    press = 101360f;
   } catch (Exception ex) {
     ex.printStackTrace();
   }

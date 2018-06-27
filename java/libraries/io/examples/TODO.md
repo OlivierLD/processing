@@ -32,7 +32,7 @@ Other systems:
 ![BME280](./I2CBME280/setup.png)
 
 #### BMP180
-![BMP180](./I2CBMP180/RPi.BMP180_bb.png)
+![BMP180](./I2CBMP180/setup.png)
 
 #### SSD1306
 ![SSD1306](../SampleApps/I2CSSD1306/RPi.SSD1306_bb.png)
@@ -41,10 +41,10 @@ Other systems:
 ![MCP3008 and SSD1306](../SampleApps/I2CandSPI/RPi.SSD1306.MCP3008_bb.png)
 
 #### STH10
-![STH10](./GPIOSTH10/RaspberryPI.STH10_bb.png)
+![STH10](./GPIOSTH10/setup.png)
 
 #### ADS1x15
-![ADS1x15](./I2CADS1x15/RPi-ADS1115.Pot_bb.png)
+![ADS1x15](./I2CADS1x15/setup.png)
 
 > Note: Wiring is the same for `ADS1015` and `ADS1115`.
 

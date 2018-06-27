@@ -1,12 +1,10 @@
 import processing.io.I2C;
 
-/**
- * BMP180. Pressure (-> Altitude), Temperature.
- * <br/>
- * Big Endian
- * <br/>
- * I<sup><small>2</small></sup>C bus, Address 0x77.
- */
+// BMP180 is an integrated environmental sensor
+// It can measure temperature and pressure
+// datasheet: https://cdn-shop.adafruit.com/datasheets/BST-BMP180-DS000-09.pdf
+// code contributed by @OlivierLD
+
 public class BMP180 extends I2C {
 
 	public final static int BMP180_I2CADDRESS = 0x77;
@@ -97,13 +95,6 @@ public class BMP180 extends I2C {
 		super.endTransmission();
 	}
 
-	private void command(int reg, byte[] val) {
-		super.beginTransmission(this.address);
-		super.write(reg);
-		super.write(val);
-		super.endTransmission();
-	}
-
 	public void readCalibrationData() throws Exception {
 		// Reads the calibration data from the IC
 		cal_AC1 = readS16(BMP180_CAL_AC1);   // INT16
@@ -137,9 +128,9 @@ public class BMP180 extends I2C {
 		System.out.println("DBG: MD  = " + cal_MD);
 	}
 
-	public int readRawTemp() throws Exception {
+	protected int readRawTemp() throws Exception {
 		// Reads the raw (uncompensated) temperature from the sensor
-		this.command(BMP180_CONTROL, (byte) BMP180_READTEMPCMD);
+		command(BMP180_CONTROL, (byte) BMP180_READTEMPCMD);
 		delay(5);  // Wait 5ms
 		int raw = readU16(BMP180_TEMPDATA);
 		if (verbose) {
@@ -148,9 +139,9 @@ public class BMP180 extends I2C {
 		return raw;
 	}
 
-	public int readRawPressure() throws Exception {
+	protected int readRawPressure() throws Exception {
 		// Reads the raw (uncompensated) pressure level from the sensor
-		this.command(BMP180_CONTROL, (byte) (BMP180_READPRESSURECMD + (this.mode << 6)));
+		command(BMP180_CONTROL, (byte) (BMP180_READPRESSURECMD + (this.mode << 6)));
 		if (this.mode == BMP180_ULTRALOWPOWER) {
 			delay(5);
 		} else if (this.mode == BMP180_HIGHRES) {
@@ -206,8 +197,8 @@ public class BMP180 extends I2C {
 		int B4 = 0;
 		int B7 = 0;
 
-		UT = this.readRawTemp();
-		UP = this.readRawPressure();
+		UT = readRawTemp();
+		UP = readRawPressure();
 
 		// You can use the datasheet values to test the conversion results
 		// boolean dataSheetValues = true;
@@ -229,7 +220,7 @@ public class BMP180 extends I2C {
 			this.cal_AC4 = 32741;
 			this.mode = BMP180_ULTRALOWPOWER;
 			if (verbose) {
-				this.showCalibrationData();
+				showCalibrationData();
 			}
 		}
 		// True Temperature Calculations
@@ -363,14 +354,6 @@ public class BMP180 extends I2C {
 		return val;
 	}
 
-  void delay(long t) {
-    try {
-      Thread.sleep(t);
-    } catch (InterruptedException ie) {
-      // Absorb
-    }
-  }
-
   String rpad(String s, int len) {
     return rpad(s, len, " ");
   }
@@ -383,13 +366,6 @@ public class BMP180 extends I2C {
     return str;
   }
 
-  /**
-   * Left pad, with blanks
-   *
-   * @param s
-   * @param len
-   * @return
-   */
   String lpad(String s, int len) {
     return lpad(s, len, " ");
   }

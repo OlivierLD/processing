@@ -1,14 +1,11 @@
 import java.util.*;
 import processing.io.*;
 
-/**
- * Note: The GPIO.pinMode is a demanding operation.
- * Should/could be improved, there are some Thread.sleep that make the flip from input and output
- * longer than it should. Will look into it.
- *
+/*
  * STH10, Temperature, Humidity.
  * Mesh-protected Weather-proof Temperature/Humidity Sensor - SHT10
- * https://www.adafruit.com/product/1298
+ * Datasheet: https://cdn-shop.adafruit.com/datasheets/Sensirion_Humidity_SHT1x_Datasheet_V5.pdf
+ * code contributed by @OlivierLD
  *
        +-----+-----+--------------+-----++-----+--------------+-----+-----+
        | BCM | wPi | Name         |  Physical  |         Name | wPi | BCM |
@@ -116,7 +113,7 @@ class STH10 {
       }
       return (value * D2_SO_C) + (D1_VDD_C); // Celcius
     } else {
-      return Simulators.TempSimulator.get();
+      return 20d;
     }
   }
 
@@ -127,7 +124,7 @@ class STH10 {
   public double readHumidity(Double temp) {
     double t;
     if (temp == null) {
-      t = this.readTemperature();
+      t = readTemperature();
     } else {
       t = temp;
     }
@@ -143,7 +140,7 @@ class STH10 {
       double humidity = ((t - 25) * (T1_S0 + (T2_SO * value)) + linearHumidity); // %
       return humidity;
     } else {
-      return Simulators.HumSimulator.get();
+      return 50d;
     }
   }
 
