@@ -12,15 +12,19 @@ int intRadius =  20;
 int extRadius = 180;
 
 void setup() {
-  println("Setup");
+	System.setProperty("sth10.verbose", "false");
+	if ("true".equals(System.getProperty("sth10.verbose"))) {
+		println("Setup");
+	}
   size(520, 400);
   noStroke();
   noFill();
   textSize(10);
-  System.setProperty("sth10.verbose", "false");
 	sth10 = new STH10(DATA, CLOCK);
   frameRate(1f); // once per second
-	println("Let's go");
+	if ("true".equals(System.getProperty("sth10.verbose"))){
+		println("Let's go");
+	}
 }
 
 int humidityFrom = 0, humidityTo = 100;
@@ -79,7 +83,9 @@ void draw() {
 
 void dispose() {
   if (!NativeInterface.isSimulated()) {
-    println("Returning the pins to the system");
+		if ("true".equals(System.getProperty("sth10.verbose"))){
+		  println("Returning the pins to the system");
+		}
     GPIO.releasePin(DATA);
     GPIO.releasePin(CLOCK);
   }
