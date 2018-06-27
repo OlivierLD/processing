@@ -5,14 +5,8 @@ STH10 sth10;
 int DATA = 18,
     CLOCK = 23;
 
-int centerX = 200;
-int centerY = 200;
-int tubeBottom = 380;
-int intRadius =  20;
-int extRadius = 180;
-
 void setup() {
-  size(720, 320);
+  size(600, 200);
   noStroke();
   noFill();
   textSize(72);
