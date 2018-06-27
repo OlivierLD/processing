@@ -29,16 +29,16 @@ Other systems:
 
 ## Wiring Diagrams
 #### BME280
-![BME280](./I2CBME280/RPi.BME280_bb.png)
+![BME280](./I2CBME280/setup.png)
 
 #### BMP180
 ![BMP180](./I2CBMP180/RPi.BMP180_bb.png)
 
 #### SSD1306
-![BME280](./I2CSSD1306/RPi.SSD1306_bb.png)
+![SSD1306](../SampleApps/I2CSSD1306/RPi.SSD1306_bb.png)
 
 #### MCP3008 & SSD1306
-![MCP3008 and SSD1306](./I2CandSPI/RPi.SSD1306.MCP3008_bb.png)
+![MCP3008 and SSD1306](../SampleApps/I2CandSPI/RPi.SSD1306.MCP3008_bb.png)
 
 #### STH10
 ![STH10](./GPIOSTH10/RaspberryPI.STH10_bb.png)
@@ -52,29 +52,29 @@ Other systems:
 
 ## Screenshots
 ### BME280
-![BME280](./I2CBME280/rpi.snapshot.png)
+![BME280](../SampleApps/I2CBME280/rpi.snapshot.png)
 
-![BME280](./I2CBME280_UI/analog.png)
+![BME280](../SampleApps/I2CBME280_UI/analog.png)
 
 ### SSD1306
-![On the PI](./I2CSSD1306/rpi.ssd1306.jpg)
+![On the PI](../SampleApps/I2CSSD1306/rpi.ssd1306.jpg)
 
-![On Processing](./I2CSSD1306/screenshot.01.png)
+![On Processing](../SampleApps/I2CSSD1306/screenshot.01.png)
 
-![On Processing](./I2CSSD1306/screenshot.02.png)
+![On Processing](../SampleApps/I2CSSD1306/screenshot.02.png)
 
-![On Processing](./I2CSSD1306/screenshot.03.png)
+![On Processing](../SampleApps/I2CSSD1306/screenshot.03.png)
 
 ### MCP3008 & SSD1306
-![On Processing](./I2CandSPI/RPi.desktop.I2C.SPI.png))
+![On Processing](../SampleApps/I2CandSPI/RPi.desktop.I2C.SPI.png))
 
-![On the PI](./I2CandSPI/Rpi.SPI.I2C.jpg)
+![On the PI](../SampleApps/I2CandSPI/Rpi.SPI.I2C.jpg)
 
 ### STH10
-![On Processing](./GPIOSTH10/sth10.at.work.png)
+![On Processing](../SampleApps/GPIOSTH10/sth10.at.work.png)
 
 ### ADS1015
-![On Processing](./I2CADS1x15/Potentiometer.png)
+![On Processing](../SampleApps/I2CADS1x15/Potentiometer.png)
 
 
 ---
