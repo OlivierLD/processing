@@ -50,7 +50,7 @@ Other systems:
 #### PCA9685
 ![PCA9685](./I2CPCA9685/setup.png)
 
-> Servo is here connected on port #15. 
+> Servo is here connected on port #15.
 ---
 
 ## Screenshots
