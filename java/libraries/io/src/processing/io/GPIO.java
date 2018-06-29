@@ -406,8 +406,6 @@ public class GPIO {
 
     if (ret < 0) {
       throw new RuntimeException(fn + ": " + NativeInterface.getError(ret));
-    }    if (ret < 0) {
-      throw new RuntimeException(fn + ": " + NativeInterface.getError(ret));
     }
   }
 
