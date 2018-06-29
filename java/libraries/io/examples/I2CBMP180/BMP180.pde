@@ -95,7 +95,7 @@ public class BMP180 extends I2C {
 		super.endTransmission();
 	}
 
-	public void readCalibrationData() throws Exception {
+	public void readCalibrationData() {
 		// Reads the calibration data from the IC
 		cal_AC1 = readS16(BMP180_CAL_AC1);   // INT16
 		cal_AC2 = readS16(BMP180_CAL_AC2);   // INT16
@@ -128,7 +128,7 @@ public class BMP180 extends I2C {
 		System.out.println("DBG: MD  = " + cal_MD);
 	}
 
-	protected int readRawTemp() throws Exception {
+	protected int readRawTemp() {
 		// Reads the raw (uncompensated) temperature from the sensor
 		command(BMP180_CONTROL, (byte) BMP180_READTEMPCMD);
 		delay(5);  // Wait 5ms
@@ -139,7 +139,7 @@ public class BMP180 extends I2C {
 		return raw;
 	}
 
-	protected int readRawPressure() throws Exception {
+	protected int readRawPressure() {
 		// Reads the raw (uncompensated) pressure level from the sensor
 		command(BMP180_CONTROL, (byte) (BMP180_READPRESSURECMD + (this.mode << 6)));
 		if (this.mode == BMP180_ULTRALOWPOWER) {
@@ -163,7 +163,7 @@ public class BMP180 extends I2C {
 		return raw;
 	}
 
-	public float readTemperature() throws Exception {
+	public float readTemperature() {
 		// Gets the compensated temperature in degrees celcius
 		int UT = 0;
 		int X1 = 0;
@@ -183,7 +183,7 @@ public class BMP180 extends I2C {
 		return temp;
 	}
 
-	public float readPressure() throws Exception {
+	public float readPressure() {
 		// Gets the compensated pressure in pascal
 		int UT = 0;
 		int UP = 0;
