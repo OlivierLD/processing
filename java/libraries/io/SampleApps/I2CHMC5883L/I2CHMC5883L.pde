@@ -35,7 +35,7 @@ void draw() {
   text(String.format("%05.1f\272", heading), 5, 12);
 
   // Drawing the rose
-  float _heading = heading + 90;
+  float _heading = (-heading) + 90;
   for (int q=0; q<4; q++) {
     fill(255); // White
     triangle(centerX,
@@ -57,8 +57,8 @@ void draw() {
   textSize(32);
   fill(255, 204, 0); // Goldish
   pushMatrix();
-  translate(centerX + (extRadius * (float)Math.cos(Math.toRadians(heading - 90))),
-            centerY + (extRadius * (float)Math.sin(Math.toRadians(heading - 90))));
+  translate(centerX + (extRadius * (float)Math.cos(Math.toRadians((-heading) - 90))),
+            centerY + (extRadius * (float)Math.sin(Math.toRadians((-heading) - 90))));
   rotate((float)Math.toRadians(heading));
   String north = "N";
   float w = textWidth(north);
