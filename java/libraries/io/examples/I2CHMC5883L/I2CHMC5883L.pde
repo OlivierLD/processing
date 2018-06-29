@@ -3,7 +3,7 @@ import processing.io.*;
 HMC5883L hmc5883l;
 
 void setup() {
-  size(840, 120);
+  size(880, 120);
   textSize(72);
   hmc5883l = new HMC5883L(I2C.list()[0], HMC5883L.HMC5883L_ADDRESS);
 }
