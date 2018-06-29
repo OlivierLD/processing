@@ -287,7 +287,7 @@ public class BMP180 extends I2C {
 		this.standardSeaLevelPressure = standardSeaLevelPressure;
 	}
 
-	public double readAltitude() {
+	public float altitude() {
 		// Calculates the altitude in meters
 		double altitude = 0.0;
 		float pressure = readPressure();
@@ -295,7 +295,7 @@ public class BMP180 extends I2C {
 		if (verbose) {
 			System.out.println("DBG: Altitude = " + altitude);
 		}
-		return altitude;
+		return (float)altitude;
 	}
 
 	/**

@@ -3,7 +3,7 @@ import processing.io.*;
 BMP180 bmp180;
 
 void setup() {
-  size(700, 180);
+  size(700, 220);
   textSize(72);
   bmp180 = new BMP180(I2C.list()[0], BMP180.BMP180_I2CADDRESS);
 }
@@ -25,4 +25,5 @@ void draw() {
   }
   text(String.format("Temp:  %.02f\272C", temp), 10, 75);
   text(String.format("Press: %.02f hPa", press / 100f), 10, 145);
+	text(String.format("Alt: %.02f m", BMP180.altitude(press, temp)), 10, 145);
 }
