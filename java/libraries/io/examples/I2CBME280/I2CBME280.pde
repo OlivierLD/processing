@@ -24,6 +24,6 @@ void draw() {
 	text(String.format("Press: %.02f hPa", press / 100f), 10, 225);
 
 	// pressure can be used to calculate the altitude like so
-	float alt = bme280.altitude(press);
+	float alt = bme280.altitude(press, temp);
 	text(String.format("Alt: %.02f m", alt), 10, 300);
 }

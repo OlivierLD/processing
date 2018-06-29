@@ -164,6 +164,19 @@ public class BME280 extends I2C {
 	}
 
 	/**
+	 * Returns the altitude in meters
+	 * @param pressure as returned by pressure() in Pa
+	 * @param temperature as returned by temperature() in Celcius
+	 */
+	public float altitude(float pressure, float temperature) {
+		double altitude = 0.0;
+		if (standardSeaLevelPressure != 0) {
+			altitude = ((Math.pow(standardSeaLevelPressure / pressure, 1 / 5.257)  - 1) * (temperature + 273.25)) / 0.0065;
+		}
+		return (float)altitude;
+	}
+
+	/**
 	 * Returns the humidity in percent
 	 */
 	public float humidity() {
