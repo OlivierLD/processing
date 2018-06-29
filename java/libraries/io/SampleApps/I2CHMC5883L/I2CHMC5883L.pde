@@ -59,7 +59,7 @@ void draw() {
   pushMatrix();
   translate(centerX + (extRadius * (float)Math.cos(Math.toRadians((-heading) - 90))),
             centerY + (extRadius * (float)Math.sin(Math.toRadians((-heading) - 90))));
-  rotate((float)Math.toRadians(heading));
+  rotate((float)Math.toRadians(-heading));
   String north = "N";
   float w = textWidth(north);
   text(north, -w / 2, 40);
