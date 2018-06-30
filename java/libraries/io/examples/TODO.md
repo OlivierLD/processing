@@ -7,7 +7,7 @@
 - Enhanced [SSD1306](https://www.adafruit.com/product/3527) (I<small><sup>2</sup></small>C). &#9989; Done
 - Mixing [MCP3008](https://www.adafruit.com/product/856) and [SSD1306](https://www.adafruit.com/product/3527) (SPI & I<small><sup>2</sup></small>C). &#9989; Done
 - [ADS1x15](https://www.adafruit.com/product/1083), I<small><sup>2</sup></small>C ADC. &#9989; Done
-- [VL53L0X](https://www.adafruit.com/product/3317), I<small><sup>2</sup></small>C Time of Flight Distance Sensor.
+- [VL53L0X](https://www.adafruit.com/product/3317), I<small><sup>2</sup></small>C Time of Flight Distance Sensor (could be the basis for a Theremin). &#9989; Done
 - [PCA9685](https://www.adafruit.com/product/815), I<small><sup>2</sup></small>C 16-channel servo board. &#9989; Done
 - [TSL2561](https://www.adafruit.com/product/439), I<small><sup>2</sup></small>C Light Sensor.  &#10140; WIP
 - ...
@@ -47,6 +47,9 @@ Other systems:
 ![ADS1x15](./I2CADS1x15/setup.png)
 
 > Note: Wiring is the same for `ADS1015` and `ADS1115`.
+
+#### VL53L0X
+![VL53L0X](./I2CVL53L0X/setup.png)
 
 #### PCA9685
 ![PCA9685](./I2CPCA9685/setup.png)
