@@ -4,7 +4,7 @@ VL53L0X vl53l0x;
 // see setup.png in the sketch folder for wiring details
 
 void setup() {
-  size(720, 320);
+  size(720, 120);
   textSize(72);
 
   //printArray(I2C.list());
@@ -23,5 +23,5 @@ void draw() {
   }
   previousDist = mm;
 
-  text(String.format("Range: %.02f mm", mm), 10, 300);
+  text(String.format("Range: %d mm", mm), 10, 75);
 }
