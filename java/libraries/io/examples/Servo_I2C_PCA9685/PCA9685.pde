@@ -16,7 +16,7 @@ public class PCA9685 extends I2C {
   public final static int LED0_OFF_H = 0x09;
 
   private int address;
-  private int freq = 200;              // 200 Hz default frequency (after power-up)
+  private int freq = 60;              // 200 Hz default frequency (after power-up)
   private boolean hasFreqSet = false;  // whether a different frequency has been set
   private int minPulses[] = new int[16];
   private int maxPulses[] = new int[16];
@@ -32,10 +32,13 @@ public class PCA9685 extends I2C {
     command(MODE1, (byte) 0x00);
   }
 
+  int SERVO_MIN = 122;
+  int SERVO_MAX = 615;
 
   public void attach(int channel) {
     // same as on Arduino
-    attach(channel, 544, 2400);
+//  attach(channel, 544, 2400);
+    attach(channel, SERVO_MIN, SERVO_MAX);
   }
 
   public void attach(int channel, int minPulse, int maxPulse) {
@@ -47,7 +50,7 @@ public class PCA9685 extends I2C {
 
     // set the PWM frequency to be the same as on Arduino
     if (!hasFreqSet) {
-      frequency(50);
+      frequency(freq);
     }
   }
 
@@ -58,15 +61,25 @@ public class PCA9685 extends I2C {
     if (angle < 0 || 180 < angle) {
       throw new IllegalArgumentException("Angle must be between 0 and 180");
     }
-    int us = (int)(minPulses[channel] + (angle/180.0) * (maxPulses[channel]-minPulses[channel]));
+    //int us = (int)(minPulses[channel] + (angle/180.0) * (maxPulses[channel]-minPulses[channel]));
 
-    double pulseLength = 1000000; // 1s = 1,000,000 us per pulse
-    pulseLength /= freq;          // 40..1000 Hz
-    pulseLength /= 4096;          // 12 bits of resolution
-    int pulse = us;
-    pulse /= pulseLength;
-    // println(pulseLength + " us per bit, pulse:" + pulse);
-    pwm(channel, 0, pulse);
+    //double pulseLength = 1000000; // 1s = 1,000,000 us per pulse
+    //pulseLength /= freq;          // 40..1000 Hz
+    //pulseLength /= 4096;          // 12 bits of resolution
+    //int pulse = us;
+    //pulse /= pulseLength;
+    //// println(pulseLength + " us per bit, pulse:" + pulse);
+    //pwm(channel, 0, pulse);
+    pwm(channel, 0, degreeToPWM(SERVO_MIN, SERVO_MAX, angle));
+  }
+
+  /*
+   * deg in [0..180]
+   */
+  private int degreeToPWM(int min, int max, float deg) {
+    int diff = max - min;
+    float oneDeg = diff / 180f;
+    return Math.round(min + (deg * oneDeg));
   }
 
   public boolean attached(int channel) {
@@ -81,7 +94,6 @@ public class PCA9685 extends I2C {
     minPulses[channel] = 0;
     maxPulses[channel] = 0;
   }
-
 
   /**
    * @param freq 40..1000 Hz
@@ -129,7 +141,6 @@ public class PCA9685 extends I2C {
     command(LED0_OFF_L + 4 * channel, (byte) (off & 0xFF));
     command(LED0_OFF_H + 4 * channel, (byte) (off >> 8));
   }
-
 
   private void command(int register, byte value) {
     beginTransmission(address);

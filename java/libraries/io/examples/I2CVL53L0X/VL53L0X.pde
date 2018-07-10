@@ -286,7 +286,7 @@ public class VL53L0X extends I2C {
 		command((byte) SYSTEM_SEQUENCE_CONFIG, (byte) 0xE8);
 
 		if (verbose) {
-			System.out.println("Constructor OK.");
+			println("Constructor OK.");
 		}
 	}
 
@@ -522,7 +522,7 @@ public class VL53L0X extends I2C {
     this.endTransmission();
     return data;
   }
-  
+
   private void command(byte[] arr) {
     super.beginTransmission(this.address);
     for (int i=0; i<arr.length; i++) {

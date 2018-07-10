@@ -21,7 +21,7 @@ void draw() {
   } catch (Exception ex) {
     ex.printStackTrace();
   }
-  text(String.format("Light:  %.02f Lux", lux), 10, 75);
+  text(String.format("Light: %.02f Lux", lux), 10, 75);
 }
 
 void dispose() {
