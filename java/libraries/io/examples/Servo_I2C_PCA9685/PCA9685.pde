@@ -70,7 +70,7 @@ public class PCA9685 extends I2C {
     //pulse /= pulseLength;
     //// println(pulseLength + " us per bit, pulse:" + pulse);
     //pwm(channel, 0, pulse);
-    pwm(channel, 0, degreeToPWM(SERVO_MIN, SERVO_MAX, angle));
+    pwm(channel, 0, degreeToPWM(minPulses[channel], maxPulses[channel], angle));
   }
 
   /*
